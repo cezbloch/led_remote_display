@@ -1,0 +1,197 @@
+#:kivy 1.8.0
+
+<AutoTextSizeButton>
+    font_size: root.height / 3
+
+<EffectsWidget>
+    canvas.before:
+        Color:
+            rgb: .6, .6, .6
+        Rectangle:
+            size: self.size
+    size: self.size
+    pos: self.pos
+    BoxLayout:
+        orientation: 'vertical'
+        AutoTextSizeButton:
+            text: "Effects Widget"
+            #size_hint: 1, 0.5
+
+        Spinner:
+            text: 'Choose Effect'
+            values: ('Text Effect', 'Rainbow Effect', 'Other')
+            #on_text:
+            height: '48dp'
+
+        #EffectScreenManager:
+
+
+<LedScreenManager>
+    MainScreen:
+    FileChooserScreen:
+    ProjectScreen:
+    ConnectDisplayScreen:
+
+<EffectScreenManager>
+    RainbowEffectScreen:
+    TextEffectScreen:
+
+
+<TextEffectScreen>
+    name: 'text_effect_screen'
+    TextInput:
+        id: text_input
+        text: "KeesWare"
+        on_text: root.draw_text()
+        multiline: False
+
+<RainbowEffectScreen>
+    name: 'rainbow_effect_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        AutoTextSizeButton:
+            text: "Rainbow"
+            size_hint: 1, 0.5
+        Image:
+            source: '.\keesware_led_banner.gif'
+            allow_stretch: True
+            anim_delay: 1/10.0
+            keep_ratio: False
+            size_hint: 1, 0.5
+
+<MainScreen>
+    name: 'main_screen'
+    BoxLayout:
+        id: reactive_layout
+        padding: 20
+        spacing: 10
+        orientation: 'vertical'
+        Image:
+            source: '.\keesware_led_banner.gif'
+            allow_stretch: True
+            anim_delay: 1/10.0
+            keep_ratio: False
+        AutoTextSizeButton:
+            text: "Create Animation"
+            on_release: app.root.current = 'project_screen'
+        AutoTextSizeButton:
+            text: "Open Animation"
+            on_release: app.root.current = 'file_chooser_screen'
+        AutoTextSizeButton:
+            text: "Connect to Display"
+            on_release: app.root.current = 'connect_display_screen'
+        AutoTextSizeButton:
+            text: "Live"
+
+<ProjectScreen>
+    name: 'project_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: 1, 0.1
+            orientation: 'horizontal'
+            AutoTextSizeButton:
+                text: "Main Menu"
+                on_release: app.root.current = 'main_screen'
+
+            Spinner:
+                id: select_effect_spinner
+                text: 'Select Effect'
+                values: root.screens
+                on_text: root.effect_changed()
+                size_hint_y: None
+                height: '48dp'
+
+        EffectScreenManager:
+            id: effect_screen_manager
+
+        TextInput:
+            id: text_input
+            size_hint: 1, 0.1
+            text: "KeesWare"
+            on_text: root.draw_text()
+            multiline: False
+
+        DisplayWidget:
+            id: display_widget
+            #size_hint: 1, 0.3
+
+
+
+
+<FileChooserScreen>
+    name: 'file_chooser_screen'
+    chosen_image_path: root.chosen_image_path
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: 1, 0.1
+            orientation: 'horizontal'
+            AutoTextSizeButton:
+                size_hint: 0.2, 1
+                text: "back to Main Menu"
+                on_release: app.root.current = 'main_screen'
+            Label:
+                text: root.chosen_image_path
+        BoxLayout:
+            orientation: 'horizontal'
+            FileChooserListView:
+                id: file_chooser_icon_view
+                show_hidden: False
+                on_selection: root.update_image_path()
+                on_path: root.update_image_path()
+            Image:
+                id: preview_image
+                source: root.chosen_image_path
+
+<ConnectDisplayScreen>
+    name: 'connect_display_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        AutoTextSizeButton:
+            size_hint: 1, 0.1
+            text: "back to Main Menu"
+            on_release: app.root.current = 'main_screen'
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    text: "Display IP:"
+                Label:
+                    text: "Port"
+                Label:
+                    text: "Width"
+                Label:
+                    text: "Height"
+                AutoTextSizeButton:
+                    id: connect_button
+                    text: "Connect"
+                    on_release: root.connect()
+                    disabled: root._connection_provider.is_connected()
+
+            BoxLayout:
+                orientation: 'vertical'
+                TextInput:
+                    id: ip_address_text_input
+                    text: "127.0.0.1"
+                    multiline: False
+                TextInput:
+                    id: port_text_input
+                    text: "6666"
+                    multiline: False
+                TextInput:
+                    id: width_text_input
+                    text: "8"
+                    multiline: False
+                TextInput:
+                    id: height_text_input
+                    text: "8"
+                    multiline: False
+                AutoTextSizeButton:
+                    id: disconnect_button
+                    text: "Disconnect"
+                    on_release: root.disconnect()
+                    disabled: not root._connection_provider.is_connected()
