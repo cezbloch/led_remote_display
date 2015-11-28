@@ -18,8 +18,7 @@ class RainbowEffect(object):
 
         for x in range(self._width):
             for y in range(self._height):
-                color = Color()
-                color.from_float(interpolated_colors.get(x))
+                color = Color.from_float(interpolated_colors.get(x))
                 self._image.putpixel((x, y), color.get_as_tuple())
 
     def get_image(self):

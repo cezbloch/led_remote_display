@@ -2,8 +2,10 @@ from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import StringProperty
 from kivy.uix.button import Button
+from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.widget import Widget
 from kivy.config import Config
+from kivy.clock import Clock
 
 from os import getcwd
 from os.path import join
@@ -11,18 +13,26 @@ from PIL import ImageFont
 import PIL
 from context import ApplicationContext
 from imaging.text_effect import TextEffect
+from imaging.image_effect import RainbowEffect
+from imaging.color import Color
+
+#must be before .kv files imports
+Config.set('graphics', 'width', '600')
+Config.set('graphics', 'height', '800')
 
 #.kv file requirements
 from ui.display_widget import DisplayWidget
 from kivy.uix.image import Image
+from kivy.uix.slider import Slider
 
-
-Config.set('graphics', 'width', '600')
-Config.set('graphics', 'height', '800')
 Context = ApplicationContext()
 
 
 class AutoTextSizeButton(Button):
+    pass
+
+
+class ColorButton(ToggleButton):
     pass
 
 
@@ -35,11 +45,51 @@ class EffectScreenManager(ScreenManager):
 
 
 class TextEffectScreen(Screen):
-    pass
+    def __init__(self, **kwargs):
+        super(TextEffectScreen, self).__init__(**kwargs)
+        self._effect_provider = Context.get_effect_provider()
+
+    def draw_text(self):
+        text_input = self.ids.text_input
+        text = text_input.text
+        font = ImageFont.truetype("arial.ttf", 14)
+        display_size = Context.get_display().get_size()
+        effect = TextEffect(display_size).with_font(font)
+        image = effect.draw_text(text)
+        image = image.crop((0, 0, display_size[0], display_size[1])).transpose(PIL.Image.FLIP_TOP_BOTTOM)
+        self._effect_provider.set_image(image)
+        self._effect_provider.apply_image()
 
 
 class RainbowEffectScreen(Screen):
-    pass
+    def __init__(self, **kwargs):
+        super(RainbowEffectScreen, self).__init__(**kwargs)
+        self._selected_button = None
+        self._effect_provider = Context.get_effect_provider()
+
+    def on_color(self):
+        if self._selected_button is None:
+            self._selected_button = self.ids.right_color_button
+        self._selected_button.background_color = self.ids.color_picker.color
+        self.apply_effect()
+
+    def apply_effect(self, time_delta):
+        display_size = Context.get_display().get_size()
+        effect = RainbowEffect(display_size)
+        left_color = self.ids.left_color_button.background_color
+        right_color = self.ids.right_color_button.background_color
+        effect.draw_vertical_rainbow(Color.from_normalized_float(left_color), Color.from_normalized_float(right_color))
+        image = effect.get_image()
+        self._effect_provider.set_image(image)
+        self._effect_provider.apply_image()
+
+    def animation_speed_changed(self):
+        Clock.unschedule(self.apply_effect)
+        fps = self.ids.speed_slider.value
+        if fps != 0:
+            period = 1/fps
+            Clock.schedule_interval(self.apply_effect, period)
+        self.ids.fps_label.text = "FPS: {:.2f}".format(fps)
 
 
 class FileChooserScreen(Screen):
@@ -63,18 +113,14 @@ class ProjectScreen(Screen):
     def __init__(self, **kwargs):
         super(ProjectScreen, self).__init__(**kwargs)
         self._connection_provider = Context.get_connection_provider()
+        self._effect_provider = Context.get_effect_provider()
+        self._effect_provider.set_apply_effect_callback(self.apply_effect)
         self._display = Context.get_display()
         self._image = None
-        self.screens = sorted(['Text Effect', 'Rainbow Effect', 'Other'])
+        self._screen_text_to_ids = {'Text Effect': 'text_effect_screen', 'Rainbow Effect': 'rainbow_effect_screen'}
 
-    def draw_text(self):
-        text_input = self.ids.text_input
-        text = text_input.text
-        font = ImageFont.truetype("arial.ttf", 14)
-        display_size = self._display.get_size()
-        effect = TextEffect(display_size).with_font(font)
-        image = effect.draw_text(text)
-        self._image = image.crop((0, 0, display_size[0], display_size[1])).transpose(PIL.Image.FLIP_TOP_BOTTOM)
+    def apply_effect(self):
+        self._image = self._effect_provider.get_image()
         self.update_ui()
         self.send_image(self._image)
 
@@ -89,9 +135,7 @@ class ProjectScreen(Screen):
         display_widget.display_frame(self._image)
 
     def effect_changed(self):
-        #self.ids.effect_screen_manager.current =  self.ids.select_effect_spinner.
-        pass
-
+        self.ids.effect_screen_manager.current = self._screen_text_to_ids[self.ids.select_effect_spinner.text]
 
 
 class MainScreen(Screen):
@@ -129,7 +173,6 @@ class ConnectDisplayScreen(Screen):
             height_text_input = self.ids['height_text_input']
             self._display.set_size((int(width_text_input.text), int(height_text_input.text)))
             self._connection_provider.get_client().send_set_size(self._display.get_size())
-
 
 
 class LedScreenManager(ScreenManager):

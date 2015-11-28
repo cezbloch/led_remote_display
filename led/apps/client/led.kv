@@ -3,61 +3,11 @@
 <AutoTextSizeButton>
     font_size: root.height / 3
 
-<EffectsWidget>
-    canvas.before:
-        Color:
-            rgb: .6, .6, .6
-        Rectangle:
-            size: self.size
-    size: self.size
-    pos: self.pos
-    BoxLayout:
-        orientation: 'vertical'
-        AutoTextSizeButton:
-            text: "Effects Widget"
-            #size_hint: 1, 0.5
-
-        Spinner:
-            text: 'Choose Effect'
-            values: ('Text Effect', 'Rainbow Effect', 'Other')
-            #on_text:
-            height: '48dp'
-
-        #EffectScreenManager:
-
-
 <LedScreenManager>
     MainScreen:
-    FileChooserScreen:
     ProjectScreen:
+    FileChooserScreen:
     ConnectDisplayScreen:
-
-<EffectScreenManager>
-    RainbowEffectScreen:
-    TextEffectScreen:
-
-
-<TextEffectScreen>
-    name: 'text_effect_screen'
-    TextInput:
-        id: text_input
-        text: "KeesWare"
-        on_text: root.draw_text()
-        multiline: False
-
-<RainbowEffectScreen>
-    name: 'rainbow_effect_screen'
-    BoxLayout:
-        orientation: 'vertical'
-        AutoTextSizeButton:
-            text: "Rainbow"
-            size_hint: 1, 0.5
-        Image:
-            source: '.\keesware_led_banner.gif'
-            allow_stretch: True
-            anim_delay: 1/10.0
-            keep_ratio: False
-            size_hint: 1, 0.5
 
 <MainScreen>
     name: 'main_screen'
@@ -97,26 +47,15 @@
             Spinner:
                 id: select_effect_spinner
                 text: 'Select Effect'
-                values: root.screens
+                values: root._screen_text_to_ids.keys()
                 on_text: root.effect_changed()
                 size_hint_y: None
                 height: '48dp'
 
         EffectScreenManager:
             id: effect_screen_manager
-
-        TextInput:
-            id: text_input
-            size_hint: 1, 0.1
-            text: "KeesWare"
-            on_text: root.draw_text()
-            multiline: False
-
         DisplayWidget:
             id: display_widget
-            #size_hint: 1, 0.3
-
-
 
 
 <FileChooserScreen>
@@ -195,3 +134,63 @@
                     text: "Disconnect"
                     on_release: root.disconnect()
                     disabled: not root._connection_provider.is_connected()
+
+
+<ColorButton>
+    font_size: root.height / 3
+    background_normal: ''
+    background_down: ''
+
+
+<EffectScreenManager>
+    RainbowEffectScreen:
+    TextEffectScreen:
+
+
+<TextEffectScreen>
+    name: 'text_effect_screen'
+    TextInput:
+        id: text_input
+        text: "KeesWare"
+        on_text: root.draw_text()
+        multiline: False
+
+<RainbowEffectScreen>
+    name: 'rainbow_effect_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: 1, 0.2
+            orientation: 'horizontal'
+            ColorButton:
+                id: left_color_button
+                text: "Left"
+                background_color: (1, 0, 0, 1)
+                group: 'color'
+                on_press: root._selected_button = self
+
+            ColorButton:
+                id: right_color_button
+                text: "Right"
+                background_color: (0, 1, 0, 1)
+                group: 'color'
+                on_press: root._selected_button = self
+
+        ColorPicker:
+            id: color_picker
+            color: (0, 0, 1, 1)
+            on_color: root.on_color()
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.2
+            Slider:
+                id: speed_slider
+                min: 0
+                max: 30
+                value: 30
+                on_value: root.animation_speed_changed()
+
+            Label:
+                id: fps_label
+                size_hint: 0.2, 1
