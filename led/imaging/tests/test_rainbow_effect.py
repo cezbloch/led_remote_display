@@ -1,5 +1,5 @@
 import unittest
-from imaging.image_effect import RainbowEffect
+from imaging.rainbow_effect import RainbowEffect
 from imaging.color import Color
 
 
@@ -29,3 +29,4 @@ class TestRainbowEffect(unittest.TestCase):
         self.assertEqual(image.getpixel((0, 5)), start_color.get_as_tuple())
         self.assertEqual(image.getpixel((28, 9)), end_color.get_as_tuple())
         self.assertEqual(image.getpixel((14, 0)), (191, 127, 121))
+

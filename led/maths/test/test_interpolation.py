@@ -32,3 +32,22 @@ class TestInterpolation(unittest.TestCase):
 
         expected_interpolated_values = Array([[150., 5., 50.]])
         assert_arrays_equal(interpolated_values, expected_interpolated_values)
+
+    def test_multiple_vector_interpolation(self):
+        known_coordinates = Array([0, 2000])
+        color_1_start = [1, 2, 3]
+        color_2_start = [10, 20, 30]
+        start_vector_of_vectors = [color_1_start, color_2_start]
+        color_1_end = [3, 8, 9]
+        color_2_end = [30, 80, 90]
+        end_vector_of_vectors = [color_1_end, color_2_end]
+
+        known_values = Array([start_vector_of_vectors, end_vector_of_vectors])
+        coordinates_to_interpolate = Array([1000])
+
+        interpolated_values = Math.Interpolate(known_coordinates, known_values, coordinates_to_interpolate)
+
+        expected_color_1_values = [2., 5., 6.]
+        expected_color_2_values = [20., 50., 60.]
+        expected_interpolated_values = Array([[expected_color_1_values, expected_color_2_values]])
+        assert_arrays_equal(interpolated_values, expected_interpolated_values)

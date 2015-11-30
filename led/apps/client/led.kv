@@ -160,21 +160,38 @@
     BoxLayout:
         orientation: 'vertical'
         BoxLayout:
-            size_hint: 1, 0.2
+            size_hint: 1, 0.3
             orientation: 'horizontal'
-            ColorButton:
-                id: left_color_button
-                text: "Left"
-                background_color: (1, 0, 0, 1)
-                group: 'color'
-                on_press: root._selected_button = self
+            BoxLayout:
+                orientation: 'vertical'
+                ColorButton:
+                    id: left_color_button
+                    text: "Left Start"
+                    background_color: (1, 0, 0, 1)
+                    group: 'color'
+                    on_press: root._selected_button = self
 
-            ColorButton:
-                id: right_color_button
-                text: "Right"
-                background_color: (0, 1, 0, 1)
-                group: 'color'
-                on_press: root._selected_button = self
+                ColorButton:
+                    id: left_color_button_end
+                    text: "Left End"
+                    background_color: (0, 1, 0, 1)
+                    group: 'color'
+                    on_press: root._selected_button = self
+            BoxLayout:
+                orientation: 'vertical'
+                ColorButton:
+                    id: right_color_button
+                    text: "Right Start"
+                    background_color: (0, 0, 1, 1)
+                    group: 'color'
+                    on_press: root._selected_button = self
+
+                ColorButton:
+                    id: right_color_button_end
+                    text: "Right End"
+                    background_color: (1, 1, 1, 1)
+                    group: 'color'
+                    on_press: root._selected_button = self
 
         ColorPicker:
             id: color_picker

@@ -1,5 +1,6 @@
 import numpy
 
+
 class Array(object):
     def __init__(self, array):
         self.array = numpy.array(array)
