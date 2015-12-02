@@ -1,17 +1,7 @@
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 
-from kivy.uix.button import Button
-from kivy.uix.togglebutton import ToggleButton
-from kivy.uix.widget import Widget
 from kivy.config import Config
-from kivy.clock import Clock
-
-#import PIL
-#from context import ApplicationContext
-
-#Context = ApplicationContext.get_instance()
-
 
 #must be before .kv files imports
 Config.set('graphics', 'width', '600')
@@ -23,24 +13,10 @@ from screens.rainbow_effect_screen import RainbowEffectScreen
 from screens.connect_display_screen import ConnectDisplayScreen
 from screens.file_chooser_screen import FileChooserScreen
 from screens.project_screen import ProjectScreen
-#from ui.display_widget import DisplayWidget
-#from kivy.uix.image import Image
-#from kivy.uix.slider import Slider
-
-
-class AutoTextSizeButton(Button):
-    pass
-
-
-class ColorButton(ToggleButton):
-    pass
+from screens.main_screen import MainScreen
 
 
 class EffectScreenManager(ScreenManager):
-    pass
-
-
-class MainScreen(Screen):
     pass
 
 

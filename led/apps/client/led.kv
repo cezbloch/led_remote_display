@@ -1,7 +1,4 @@
-#:kivy 1.8.0
-
-<AutoTextSizeButton>
-    font_size: root.height / 3
+#:kivy 1.9.0
 
 <LedScreenManager>
     MainScreen:
@@ -9,39 +6,7 @@
     FileChooserScreen:
     ConnectDisplayScreen:
 
-<MainScreen>
-    name: 'main_screen'
-    BoxLayout:
-        id: reactive_layout
-        padding: 20
-        spacing: 10
-        orientation: 'vertical'
-        Image:
-            source: '.\keesware_led_banner.gif'
-            allow_stretch: True
-            anim_delay: 1/10.0
-            keep_ratio: False
-        AutoTextSizeButton:
-            text: "Create Animation"
-            on_release: app.root.current = 'project_screen'
-        AutoTextSizeButton:
-            text: "Open Animation"
-            on_release: app.root.current = 'file_chooser_screen'
-        AutoTextSizeButton:
-            text: "Connect to Display"
-            on_release: app.root.current = 'connect_display_screen'
-        AutoTextSizeButton:
-            text: "Live"
-
-
-
-
-<ColorButton>
-    font_size: root.height / 3
-    background_normal: ''
-    background_down: ''
-
-
 <EffectScreenManager>
     RainbowEffectScreen:
     TextEffectScreen:
+

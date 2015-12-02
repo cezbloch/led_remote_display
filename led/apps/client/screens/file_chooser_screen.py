@@ -12,7 +12,7 @@ class FileChooserScreen(Screen):
 
     def get_empty_photo_path(self):
         current_directory = getcwd()
-        return join(current_directory, 'empty_photo.png')
+        return join(current_directory, 'resources', 'empty_photo.png')
 
     def update_image_path(self):
         selected_files = self.ids['file_chooser_icon_view'].selection
