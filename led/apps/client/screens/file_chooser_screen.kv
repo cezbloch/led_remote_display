@@ -1,0 +1,24 @@
+<FileChooserScreen>
+    name: 'file_chooser_screen'
+    chosen_image_path: root.chosen_image_path
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: 1, 0.1
+            orientation: 'horizontal'
+            AutoTextSizeButton:
+                size_hint: 0.2, 1
+                text: "back to Main Menu"
+                on_release: app.root.current = 'main_screen'
+            Label:
+                text: root.chosen_image_path
+        BoxLayout:
+            orientation: 'horizontal'
+            FileChooserListView:
+                id: file_chooser_icon_view
+                show_hidden: False
+                on_selection: root.update_image_path()
+                on_path: root.update_image_path()
+            Image:
+                id: preview_image
+                source: root.chosen_image_path

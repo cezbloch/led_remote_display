@@ -1,0 +1,23 @@
+<ProjectScreen>
+    name: 'project_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: 1, 0.1
+            orientation: 'horizontal'
+            AutoTextSizeButton:
+                text: "Main Menu"
+                on_release: app.root.current = 'main_screen'
+
+            Spinner:
+                id: select_effect_spinner
+                text: 'Select Effect'
+                values: root._screen_text_to_ids.keys()
+                on_text: root.effect_changed()
+                size_hint_y: None
+                height: '48dp'
+
+        EffectScreenManager:
+            id: effect_screen_manager
+        DisplayWidget:
+            id: display_widget

@@ -1,0 +1,52 @@
+<ConnectDisplayScreen>
+    name: 'connect_display_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        AutoTextSizeButton:
+            size_hint: 1, 0.1
+            text: "back to Main Menu"
+            on_release: app.root.current = 'main_screen'
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    text: "Display IP:"
+                Label:
+                    text: "Port"
+                Label:
+                    text: "Width"
+                Label:
+                    text: "Height"
+                AutoTextSizeButton:
+                    id: connect_button
+                    text: "Connect"
+                    on_release: root.connect()
+                    disabled: root._connection_provider.is_connected()
+
+            BoxLayout:
+                orientation: 'vertical'
+                TextInput:
+                    id: ip_address_text_input
+                    #text: "192.168.1.4"
+                    text: "127.0.0.1"
+                    multiline: False
+                TextInput:
+                    id: port_text_input
+                    text: "6666"
+                    multiline: False
+                TextInput:
+                    id: width_text_input
+                    text: "30"
+                    multiline: False
+                TextInput:
+                    id: height_text_input
+                    text: "10"
+                    multiline: False
+                AutoTextSizeButton:
+                    id: disconnect_button
+                    text: "Disconnect"
+                    on_release: root.disconnect()
+                    disabled: not root._connection_provider.is_connected()
