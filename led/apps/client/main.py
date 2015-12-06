@@ -1,6 +1,5 @@
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
-
 from kivy.config import Config
 
 #must be before .kv files imports

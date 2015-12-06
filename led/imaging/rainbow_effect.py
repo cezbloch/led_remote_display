@@ -25,7 +25,7 @@ class RainbowEffect(object):
 
         for x in range(self._width):
             for y in range(self._height):
-                color = Color.from_float(interpolated_colors.get(x))
+                color = Color.from_float_array(interpolated_colors.get(x))
                 self._image.putpixel((x, y), color.get_as_tuple())
 
     def get_image(self):
@@ -60,4 +60,4 @@ class RainbowEffectAnimation(RainbowEffect):
         left_color = colors[0]
         right_color = colors[1]
 
-        self.draw_vertical_rainbow(Color.from_float(left_color), Color.from_float(right_color))
+        self.draw_vertical_rainbow(Color.from_float_array(left_color), Color.from_float_array(right_color))

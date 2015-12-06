@@ -3,8 +3,18 @@ class Color(object):
         self.rgb = [r, g, b]
 
     @staticmethod
-    def from_float(rgb_float):
+    def from_float_array(rgb_float):
         return Color(int(rgb_float[0]), int(rgb_float[1]), int(rgb_float[2]))
+
+    @staticmethod
+    def from_int(rgb_int):
+        r = chr((rgb_int >> 16))
+        g = chr((rgb_int >> 8))
+        b = chr(rgb_int & 0xFF)
+        return Color(r, g, b)
+
+    def get_as_int(self):
+        return (self.rgb[0] << 16) | (self.rgb[1] << 8) | self.rgb[2]
 
     def build(self):
         return self.rgb
