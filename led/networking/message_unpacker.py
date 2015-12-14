@@ -21,7 +21,7 @@ class MessageUnpacker(object):
                 self._server.set_size(size)
             elif self.isCommand(command, COMMAND_DISPLAY_FRAME):
                 image = self.unpack_display_frame_command(command)
-                self._logger.info("Displaying image with size: " + str(image.size))
+                #self._logger.info("Displaying image with size: " + str(image.size))
                 self._server.display_frame(image)
             else:
                 self._logger.error("Unknown command - dumping json: " + object)

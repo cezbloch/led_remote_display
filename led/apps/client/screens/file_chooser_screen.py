@@ -7,6 +7,7 @@ from os import getcwd
 
 Builder.load_file(join('screens', 'file_chooser_screen.kv'))
 
+
 class FileChooserScreen(Screen):
     chosen_image_path = StringProperty("")
 

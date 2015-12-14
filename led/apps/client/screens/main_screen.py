@@ -7,5 +7,6 @@ from ui.auto_size_button import AutoTextSizeButton
 
 Builder.load_file(join('screens', 'main_screen.kv'))
 
+
 class MainScreen(Screen):
     pass
