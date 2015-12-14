@@ -1,4 +1,5 @@
 from kivy.uix.screenmanager import Screen
+from kivy.uix.behaviors import FocusBehavior
 from imaging.rainbow_effect import RainbowEffectAnimation
 from imaging.color import Color
 from context import ApplicationContext
@@ -12,7 +13,7 @@ from ui.color_button import ColorButton
 Context = ApplicationContext.get_instance()
 Builder.load_file(join('screens', 'rainbow_effect_screen.kv'))
 
-class RainbowEffectScreen(Screen):
+class RainbowEffectScreen(FocusBehavior, Screen):
     def __init__(self, **kwargs):
         super(RainbowEffectScreen, self).__init__(**kwargs)
         self._selected_button = None
@@ -27,6 +28,9 @@ class RainbowEffectScreen(Screen):
         self._time_elapsed = 0
 
     def apply_effect(self, time_delta):
+        if not self.focused:
+            Clock.unschedule(self.apply_effect)
+
         display_size = Context.get_display().get_size()
         effect = RainbowEffectAnimation(display_size)
         left_color = self.ids.left_color_button.background_color
