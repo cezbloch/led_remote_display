@@ -21,3 +21,8 @@ class TestColor(unittest.TestCase):
         color = Color(240, 15, 204)
 
         self.assertEqual(color.get_as_int(), 15732684)
+
+    def test_get_rgba(self):
+        color = Color(240, 15, 204)
+
+        self.assertEqual(color.get_as_rgba_tuple(), (240, 15, 204, 255))

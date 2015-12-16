@@ -16,6 +16,9 @@ class Color(object):
     def get_as_int(self):
         return (self.rgb[0] << 16) | (self.rgb[1] << 8) | self.rgb[2]
 
+    def get_as_rgba_tuple(self):
+        return self.rgb[0], self.rgb[1], self.rgb[2], 255
+
     def build(self):
         return self.rgb
 
@@ -23,5 +26,18 @@ class Color(object):
         return self.rgb[0], self.rgb[1], self.rgb[2]
 
     @staticmethod
+    def from_tuple(col):
+        return Color(chr(col[0]), chr(col[1]), chr(col[2]))
+
+    @staticmethod
     def from_normalized_float(normalized_float):
         return Color(int(255*normalized_float[0]), int(255*normalized_float[1]), int(255*normalized_float[2]))
+
+    @staticmethod
+    def Black():
+        return Color(0, 0, 0)
+
+    @staticmethod
+    def White():
+        return Color(255, 255, 255)
+

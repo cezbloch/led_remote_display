@@ -1,15 +1,18 @@
 import unittest
 from imaging.text_effect import TextEffect
-from PIL import ImageFont
+from imaging.font import Font
 
 
-class TestImageFactory(unittest.TestCase):
-    def test_create_empty_image_from_string(self):
+class TestTextEffect(unittest.TestCase):
+    def test_draw_text(self):
         size = (30, 10)
-        text = "KeesWare"
-        font = ImageFont.truetype("arial.ttf", 14)
-        effect = TextEffect(size).with_font(font)
-        image = effect.draw_text(text)
-        image.show()
+        font = Font()
+        font.auto_adjust_font_size_to_height(size[1])
+        effect = TextEffect()
+        text = "KeeSWare"
 
-        self.assertEqual(image.size, size)
+        effect.draw_text(text, font)
+        effect.crop()
+        image = effect.get_image()
+
+        self.assertEqual(image.size[1], 10)

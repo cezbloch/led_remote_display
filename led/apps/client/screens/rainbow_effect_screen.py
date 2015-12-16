@@ -13,6 +13,7 @@ from ui.color_button import ColorButton
 Context = ApplicationContext.get_instance()
 Builder.load_file(join('screens', 'rainbow_effect_screen.kv'))
 
+
 class RainbowEffectScreen(FocusBehavior, Screen):
     def __init__(self, **kwargs):
         super(RainbowEffectScreen, self).__init__(**kwargs)

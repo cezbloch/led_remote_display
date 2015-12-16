@@ -1,7 +1,6 @@
 from kivy.uix.image import Image
 from kivy.graphics.texture import Texture
 from kivy.clock import Clock
-from kivy.uix.widget import Widget
 
 
 class DisplayWidget(Image):
@@ -19,8 +18,6 @@ class DisplayWidget(Image):
             data_bytes = scaled_image.tobytes()
             texture.blit_buffer(data_bytes, colorfmt='rgb', bufferfmt='ubyte')
             self.texture = texture
-            self.allow_stretch = True
-            self.keep_ratio = True
         else:
             #TODO: log something
             pass

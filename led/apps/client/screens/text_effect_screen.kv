@@ -1,7 +1,24 @@
 <TextEffectScreen>
     name: 'text_effect_screen'
-    TextInput:
-        id: text_input
-        text: "KeesWare"
-        on_text: root.draw_text()
-        multiline: False
+    BoxLayout:
+        orientation: 'vertical'
+        TextInput:
+            id: text_input
+            text: "KeesWare"
+            on_text: root.draw_text()
+            multiline: False
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.2
+            Slider:
+                id: scroll_speed_slider
+                min: 0
+                max: 30
+                value: 30
+                on_value: root.animation_speed_changed()
+
+            Label:
+                id: speed_label
+                size_hint: 0.3, 1
+                text: 'scroll speed'

@@ -1,5 +1,7 @@
+from color import Color
 from PIL import Image
 from random import randint
+
 
 def multiply_color(color, number, div):
     (r, g, b) = color
@@ -8,10 +10,11 @@ def multiply_color(color, number, div):
     else:
         return r*number/div, g*number/div, b*number/div
 
+
 class ImageFactory(object):
     @staticmethod
-    def create_rgb_image(size):
-        image = Image.new('RGB', size)
+    def create_rgb_image(size, color=Color.Black()):
+        image = Image.new('RGB', size, color.get_as_tuple())
         return image
 
     @staticmethod
