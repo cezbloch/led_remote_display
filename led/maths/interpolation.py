@@ -2,6 +2,7 @@ import numpy
 from scipy.interpolate import interp1d
 from containers import Array
 
+
 class Math(object):
     @staticmethod
     def Interpolate(known_coordinates, known_values, coordinates_to_interpolate):

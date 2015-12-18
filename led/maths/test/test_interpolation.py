@@ -1,8 +1,8 @@
 from maths.interpolation import Math
 import unittest
-import numpy as np
 from maths.containers import Array
 from maths.testing import assert_arrays_equal
+
 
 class TestInterpolation(unittest.TestCase):
     def test_1D_interpolation_integer(self):
