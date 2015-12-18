@@ -1,5 +1,6 @@
 from networking.factories import ClientFactory
 
+
 class ConnectionProvider(object):
     def __init__(self):
         self._isConnected = False

@@ -1,6 +1,6 @@
 from kivy.uix.screenmanager import Screen
 from kivy.properties import StringProperty
-from context import ApplicationContext
+from client_facade.context import ApplicationContext
 from kivy.lang import Builder
 from os.path import join
 from os import getcwd

@@ -13,15 +13,12 @@ class SettingsProvider(object):
 
     def set_defaults(self):
         self.__config.setdefaults('connection', {
-            'reconnect_on_startup': True,
+            'reconnect_on_startup': False,
             'ip_address': '127.0.0.1',
             'port_number': 6666})
         self.__config.setdefaults('panel', {
             'width': 30,
             'height': 10})
-        self.__config.setdefaults('rainbow', {
-            'reconnect_on_startup': False,
-            'ip_address': 'local_machine'})
 
     def add_display_connection_settings_panel(self, settings):
         settings_json = json.dumps([

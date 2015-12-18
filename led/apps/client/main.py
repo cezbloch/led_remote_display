@@ -1,8 +1,11 @@
 from kivy.app import App
-from kivy.uix.screenmanager import ScreenManager, Screen
-from widgets.display_settings import DisplaySettings
-from context import ApplicationContext
+from kivy.uix.screenmanager import ScreenManager
 from kivy.config import Config
+
+from widgets.display_settings import DisplaySettings
+from client_facade.context import ApplicationContext
+
+from client_facade.settings_defines import *
 
 #must be before .kv files imports
 Config.set('graphics', 'width', '600')
@@ -28,11 +31,14 @@ class LedScreenManager(ScreenManager):
 class LedApp(App):
     def __init__(self, **kwargs):
         super(LedApp, self).__init__(**kwargs)
-        self.__settings_provider = Context.get_settings_provider()
+        self.__context = kwargs['context']
+        self.__settings_provider = self.__context.get_settings_provider()
 
     def build(self):
         self.use_kivy_settings = False
         self.settings_cls = DisplaySettings
+        # settings are loaded only here
+        self.__context.startup()
         return LedScreenManager()
 
     def build_config(self, config):
@@ -43,4 +49,4 @@ class LedApp(App):
         self.__settings_provider.add_display_connection_settings_panel(settings)
 
 if __name__ == '__main__':
-    LedApp().run()
+    LedApp(context=Context).run()

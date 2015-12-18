@@ -2,7 +2,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.behaviors import FocusBehavior
 from imaging.rainbow_effect import RainbowEffectAnimation
 from imaging.color import Color
-from context import ApplicationContext
+from client_facade.context import ApplicationContext
 from kivy.clock import Clock
 from kivy.lang import Builder
 from os.path import join

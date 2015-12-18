@@ -3,7 +3,7 @@ from imaging.scroll_animation import ScrollAnimation
 from kivy.uix.screenmanager import Screen
 from kivy.uix.behaviors import FocusBehavior
 from imaging.font import Font
-from context import ApplicationContext
+from client_facade.context import ApplicationContext
 from kivy.lang import Builder
 from os.path import join
 import PIL

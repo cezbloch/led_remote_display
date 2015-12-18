@@ -1,6 +1,5 @@
 from kivy.uix.settings import Settings
-from kivy.config import Config
-from context import ApplicationContext
+from client_facade.context import ApplicationContext
 
 Context = ApplicationContext.get_instance()
 
