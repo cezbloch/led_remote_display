@@ -13,9 +13,18 @@ def multiply_color(color, number, div):
 
 class ImageFactory(object):
     @staticmethod
-    def create_rgb_image(size, color=Color.Black()):
-        image = Image.new('RGB', size, color.get_as_tuple())
-        return image
+    def create_rgb_image(size, color=None):
+        if color is None:
+            return Image.new('RGB', size)
+        else:
+            return Image.new('RGB', size, color.get_as_tuple())
+
+    @staticmethod
+    def create_rgba_image(size, color=None):
+        if color is None:
+            return Image.new('RGBA', size)
+        else:
+            return Image.new('RGBA', size, color)
 
     @staticmethod
     def create_image(mode, size):

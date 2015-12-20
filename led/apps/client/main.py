@@ -34,6 +34,7 @@ class LedApp(App):
         self.__context = kwargs['context']
         self.__settings_provider = self.__context.get_settings_provider()
 
+    # called when building UI after config
     def build(self):
         self.use_kivy_settings = False
         self.settings_cls = DisplaySettings
@@ -41,11 +42,14 @@ class LedApp(App):
         self.__context.startup()
         return LedScreenManager()
 
+    # called before UI is build
     def build_config(self, config):
         self.__settings_provider.set_config(config)
         self.__settings_provider.set_defaults()
 
+    # called when opening settings
     def build_settings(self, settings):
+
         self.__settings_provider.add_display_connection_settings_panel(settings)
 
 if __name__ == '__main__':

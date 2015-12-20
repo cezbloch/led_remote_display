@@ -1,6 +1,7 @@
 import unittest
-from imaging.text_effect import TextEffect
+from imaging.color import Color
 from imaging.font import Font
+from imaging.text_effect import TextEffect
 
 
 class TestTextEffect(unittest.TestCase):
@@ -14,5 +15,19 @@ class TestTextEffect(unittest.TestCase):
         effect.draw_text(text, font)
         effect.crop()
         image = effect.get_image()
+
+        self.assertEqual(image.size[1], 10)
+
+    def test_draw_text_red_green(self):
+        size = (30, 10)
+        font = Font()
+        font.auto_adjust_font_size_to_height(size[1])
+        effect = TextEffect(Color.Red(), Color.Green())
+        text = "KeesWare"
+
+        effect.draw_text(text, font)
+        effect.crop()
+        image = effect.get_image()
+        image.show()
 
         self.assertEqual(image.size[1], 10)

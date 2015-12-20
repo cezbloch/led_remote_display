@@ -41,3 +41,14 @@ class Color(object):
     def White():
         return Color(255, 255, 255)
 
+    @staticmethod
+    def Red():
+        return Color(255, 0, 0)
+
+    @staticmethod
+    def Green():
+        return Color(0, 255, 0)
+
+    @staticmethod
+    def Blue():
+        return Color(0, 0, 255)

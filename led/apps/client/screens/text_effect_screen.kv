@@ -2,6 +2,30 @@
     name: 'text_effect_screen'
     BoxLayout:
         orientation: 'vertical'
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.2
+            ColorButton:
+                id: text_color_button
+                text: "Text Color"
+                background_color: (0, 0, 1, 1)
+                group: 'color'
+                on_press: root.button_pressed(self)
+
+            ColorButton:
+                id: background_color_button
+                text: "Background Color"
+                background_color: (0, 0, 0, 1)
+                group: 'color'
+                on_press: root.button_pressed(self)
+
+            Spinner:
+                id: font_size_spinner
+                text: 'Font Size'
+                values: ['5', '10' , '15']
+                on_text: root.font_size_changed()
+
         TextInput:
             id: text_input
             text: "KeesWare"
@@ -15,7 +39,7 @@
                 id: scroll_speed_slider
                 min: 0
                 max: 30
-                value: 30
+                value: 15
                 on_value: root.animation_speed_changed()
 
             Label:
