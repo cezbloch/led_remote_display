@@ -54,7 +54,7 @@ class TestTextScrollAnimation(unittest.TestCase):
         animation.pre_render(start_point, end_point, frames_amount)
         first_frame = animation[0]
         middle_frame = animation[len(animation)/2]
-        animation.save("anim.gif")
+        animation.save("2.gif")
 
         self.assertEqual(first_frame.getpixel((0, 0)), background_color.get_as_tuple())
         self.assertEqual(middle_frame.size, animation_size)

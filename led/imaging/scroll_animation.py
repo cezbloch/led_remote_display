@@ -47,6 +47,6 @@ class ScrollAnimation(object):
             self.__frames.append(current_frame)
 
     def save(self, filename):
-        image = self.__frames[0]
-        self.__frames[0] = image.convert('P', palette=Image.ADAPTIVE, colors=256)
-        writeGif(filename, self.__frames, duration=0.05)
+        for index in range(len(self.__frames)):
+            self.__frames[index] = self.__frames[index].convert('P', palette=Image.ADAPTIVE, colors=256)
+        writeGif(filename, self.__frames, duration=0.2)

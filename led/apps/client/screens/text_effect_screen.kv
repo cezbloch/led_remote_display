@@ -29,7 +29,7 @@
         TextInput:
             id: text_input
             text: "KeesWare"
-            on_text: root.draw_text()
+            on_text: root.recreate_text_effect()
             multiline: False
 
         BoxLayout:
@@ -40,7 +40,7 @@
                 min: 0
                 max: 30
                 value: 15
-                on_value: root.animation_speed_changed()
+                on_value: root.schedule_frame_updates()
 
             Label:
                 id: speed_label

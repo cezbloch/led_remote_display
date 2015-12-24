@@ -28,6 +28,5 @@ class TestTextEffect(unittest.TestCase):
         effect.draw_text(text, font)
         effect.crop()
         image = effect.get_image()
-        image.show()
 
         self.assertEqual(image.size[1], 10)
