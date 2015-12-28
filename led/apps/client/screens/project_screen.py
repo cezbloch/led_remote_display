@@ -9,6 +9,7 @@ from ui.display_widget import DisplayWidget
 Context = ApplicationContext.get_instance()
 Builder.load_file(join('screens', 'project_screen.kv'))
 
+
 class ProjectScreen(Screen):
     def __init__(self, **kwargs):
         super(ProjectScreen, self).__init__(**kwargs)
@@ -17,7 +18,9 @@ class ProjectScreen(Screen):
         self._effect_provider.set_apply_effect_callback(self.apply_effect)
         self._display = Context.get_display()
         self._image = None
-        self._screen_text_to_ids = {'Text Effect': 'text_effect_screen', 'Rainbow Effect': 'rainbow_effect_screen'}
+        self._screen_text_to_ids = {'Text Effect': 'text_effect_screen',
+                                    'Rainbow Effect': 'rainbow_effect_screen',
+                                    'Paint Effect': 'paint_effect_screen'}
 
     def apply_effect(self):
         self._image = self._effect_provider.get_image()

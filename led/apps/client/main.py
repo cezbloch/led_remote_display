@@ -18,6 +18,7 @@ from screens.rainbow_effect_screen import RainbowEffectScreen
 from screens.file_chooser_screen import FileChooserScreen
 from screens.project_screen import ProjectScreen
 from screens.main_screen import MainScreen
+from screens.paint_effect_screen import PaintEffectScreen
 
 
 class EffectScreenManager(ScreenManager):

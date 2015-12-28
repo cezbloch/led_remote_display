@@ -1,6 +1,7 @@
 from kivy.uix.image import Image
 from kivy.graphics.texture import Texture
 from kivy.clock import Clock
+import PIL
 
 
 class DisplayWidget(Image):
@@ -24,7 +25,7 @@ class DisplayWidget(Image):
 
     def display_frame(self, image):
         # just update image in this thread - comes from server thread
-        self.my_image = image
+        self.my_image = image.transpose(PIL.Image.FLIP_TOP_BOTTOM)
 
     def set_size(self, buf_size):
         self.buf_size = buf_size

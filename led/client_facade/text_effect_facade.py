@@ -1,4 +1,3 @@
-import PIL
 from imaging.scroll_animation import ScrollAnimation
 from imaging.text_effect import TextEffect
 from maths.containers import Array
@@ -34,7 +33,7 @@ class TextEffectFacade(object):
         self.__animation.pre_render(start_point, end_point, steps_amount)
 
     def get_next_frame(self):
-        image = self.__animation[self.__current_frame % len(self.__animation)].transpose(PIL.Image.FLIP_TOP_BOTTOM)
+        image = self.__animation[self.__current_frame % len(self.__animation)]
         self.__current_frame += 1
 
         return image
