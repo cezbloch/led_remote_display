@@ -3,9 +3,6 @@ from client_facade.context import ApplicationContext
 from kivy.lang import Builder
 from os.path import join
 
-#for kv
-from ui.display_widget import DisplayWidget
-
 Context = ApplicationContext.get_instance()
 Builder.load_file(join('screens', 'project_screen.kv'))
 

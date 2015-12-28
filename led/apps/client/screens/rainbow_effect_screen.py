@@ -7,9 +7,6 @@ from kivy.clock import Clock
 from kivy.lang import Builder
 from os.path import join
 
-#for kv file
-from ui.color_button import ColorButton
-
 Context = ApplicationContext.get_instance()
 Builder.load_file(join('screens', 'rainbow_effect_screen.kv'))
 

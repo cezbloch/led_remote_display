@@ -9,7 +9,6 @@ from kivy.uix.behaviors import FocusBehavior
 from os.path import join
 from ui.color_selector import ColorSelector
 
-
 Context = ApplicationContext.get_instance()
 Builder.load_file(join('screens', 'text_effect_screen.kv'))
 
@@ -74,3 +73,6 @@ class TextEffectScreen(FocusBehavior, Screen):
     def color_changed(self, *args):
         self.recreate_text_effect()
         self.schedule_frame_updates()
+
+    def font_size_changed(self):
+        pass

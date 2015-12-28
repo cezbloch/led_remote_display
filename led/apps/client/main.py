@@ -1,24 +1,13 @@
-from kivy.app import App
-from kivy.uix.screenmanager import ScreenManager
-from kivy.config import Config
-
-from widgets.display_settings import DisplaySettings
 from client_facade.context import ApplicationContext
+from widgets.display_settings import DisplaySettings
 
-from client_facade.settings_defines import *
+from kivy.app import App
+from kivy.config import Config
+from kivy.uix.screenmanager import ScreenManager
 
-#must be before .kv files imports
 Config.set('graphics', 'width', '600')
 Config.set('graphics', 'height', '800')
 Context = ApplicationContext.get_instance()
-
-#.kv file requirements
-from screens.text_effect_screen import TextEffectScreen
-from screens.rainbow_effect_screen import RainbowEffectScreen
-from screens.file_chooser_screen import FileChooserScreen
-from screens.project_screen import ProjectScreen
-from screens.main_screen import MainScreen
-from screens.paint_effect_screen import PaintEffectScreen
 
 
 class EffectScreenManager(ScreenManager):
