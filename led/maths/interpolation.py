@@ -1,16 +1,15 @@
-import numpy
-from scipy.interpolate import interp1d
-from containers import Array
+from numpy_wrapper import transpose, interpolate_1d, depth
 
 
-class Math(object):
-    @staticmethod
-    def Interpolate(known_coordinates, known_values, coordinates_to_interpolate):
-        known_values_transposed = numpy.matrix.transpose(known_values.array)
-        f = interp1d(known_coordinates.array, known_values_transposed)
-        interpolated_values = numpy.matrix.transpose(f(coordinates_to_interpolate.array[:]))
-        return Array(interpolated_values)
+def interpolate(known_coordinates, known_values, coordinates_to_interpolate):
+    array_depth = depth(known_values)
+    if array_depth == 1:
+        return interpolate_1d(known_coordinates, known_values, coordinates_to_interpolate)
+    else:
+        known_values_transposed = transpose(known_values)
+        val = [transpose(interpolate(known_coordinates,
+                         values_one_dimension,
+                         coordinates_to_interpolate))
+               for values_one_dimension in known_values_transposed]
 
-    @staticmethod
-    def generate_range_points(start_point, end_point, number_of_points):
-        return Array(numpy.linspace(start_point, end_point, number_of_points))
+        return transpose(val)
