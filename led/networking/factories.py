@@ -1,8 +1,10 @@
 import time
 
-import jsocket
-from led_server import LedServerThreaded
+# from jsocket.jsocket_base import JsonClient
+# from led_server import LedServerThreaded
 from led_client import LedClient
+
+from mocked_jsocket import JsonClient, LedServerThreaded
 from message_unpacker import MessageUnpacker
 
 class ServerFactory(object):
@@ -24,7 +26,7 @@ class ClientFactory(object):
     @staticmethod
     def create_and_connect_client(**kwargs):
         time.sleep(1)
-        socket_client = jsocket.JsonClient(**kwargs)
+        socket_client = JsonClient(**kwargs)
         led_client = None
         if socket_client.connect():
             led_client = LedClient(socket_client)
