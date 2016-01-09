@@ -35,10 +35,10 @@ class RainbowEffectScreen(FocusBehavior, Screen):
         left_color_end = self.ids.left_color_button_end.background_color
         right_color = self.ids.right_color_button.background_color
         right_color_end = self.ids.right_color_button_end.background_color
-        start_colors = [Color.from_normalized_float(left_color).rgb, Color.from_normalized_float(right_color).rgb]
-        end_colors = [Color.from_normalized_float(left_color_end).rgb, Color.from_normalized_float(right_color_end).rgb]
-        effect.set_start_colors(start_colors)
-        effect.set_end_colors(end_colors)
+        left_colors = [Color.from_normalized_float(left_color).rgb, Color.from_normalized_float(left_color_end).rgb]
+        right_colors = [Color.from_normalized_float(right_color).rgb, Color.from_normalized_float(right_color_end).rgb]
+        effect.set_left_colors(left_colors)
+        effect.set_right_colors(right_colors)
         effect.set_duration(2000)
         effect.draw_vertical_rainbow_frame_at(self._time_elapsed)
         image = effect.get_image()

@@ -1,6 +1,5 @@
-from imaging.color import Color
 from imaging.image_factory import ImageFactory
-from maths.interpolation import Math
+from maths.numpy_wrapper import generate_range_points
 from images2gif import writeGif
 from PIL import Image
 
@@ -19,8 +18,8 @@ class ScrollAnimation(object):
         return len(self.__frames)
 
     def pre_render(self, start_point, end_point, steps_amount):
-        x = Math.generate_range_points(start_point[0], end_point[0], steps_amount)
-        y = Math.generate_range_points(start_point[1], end_point[1], steps_amount)
+        x = generate_range_points(start_point[0], end_point[0], steps_amount)
+        y = generate_range_points(start_point[1], end_point[1], steps_amount)
 
         for frame_id in range(steps_amount):
             # fill frame with background color

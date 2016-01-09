@@ -1,6 +1,5 @@
 from imaging.scroll_animation import ScrollAnimation
 from imaging.text_effect import TextEffect
-from maths.containers import Array
 
 
 class TextEffectParameters(object):
@@ -26,9 +25,9 @@ class TextEffectFacade(object):
         text_image = effect.get_image()
         self.__animation = ScrollAnimation(parameters.display_size, text_image, parameters.background_color)
         width, height = parameters.display_size
-        start_point = Array([width, 0])
+        start_point = [width, 0]
         text_image_width = text_image.size[0]
-        end_point = Array([-text_image_width, 0])
+        end_point = [-text_image_width, 0]
         steps_amount = text_image_width + width
         self.__animation.pre_render(start_point, end_point, steps_amount)
 

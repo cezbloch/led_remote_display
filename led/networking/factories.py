@@ -7,6 +7,7 @@ from led_client import LedClient
 from mocked_jsocket import JsonClient, LedServerThreaded
 from message_unpacker import MessageUnpacker
 
+
 class ServerFactory(object):
     @staticmethod
     def create_server(device, **kwargs):

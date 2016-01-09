@@ -3,7 +3,6 @@ from imaging.color import Color
 from imaging.font import Font
 from imaging.scroll_animation import ScrollAnimation
 from imaging.text_effect import TextEffect
-from maths.containers import Array
 
 
 class TestTextScrollAnimation(unittest.TestCase):
@@ -19,9 +18,9 @@ class TestTextScrollAnimation(unittest.TestCase):
 
         animation_size = (30, 10)
         animation = ScrollAnimation(animation_size, self.image, Color.Black())
-        start_point = Array([0, 0])
+        start_point = [0, 0]
         image_size = self.image.size
-        end_point = Array([-image_size[0], -image_size[1]])
+        end_point = [-image_size[0], -image_size[1]]
         # move by one pixel per frame
         frames_amount = image_size[0] + animation_size[0]
 
@@ -45,9 +44,9 @@ class TestTextScrollAnimation(unittest.TestCase):
 
         animation_size = (30, 10)
         animation = ScrollAnimation(animation_size, self.image, background_color)
-        start_point = Array([animation_size[0], 0])
+        start_point = [animation_size[0], 0]
         image_size = self.image.size
-        end_point = Array([-image_size[0], 0])
+        end_point = [-image_size[0], 0]
         # move by one pixel per frame
         frames_amount = image_size[0] + animation_size[0]
 
