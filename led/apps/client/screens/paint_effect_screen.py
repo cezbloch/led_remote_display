@@ -6,10 +6,10 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.behaviors import FocusBehavior
 from os.path import join
 from ui.color_selector import ColorSelector
-
+from ui.error_window import ErrorWindow
 
 Context = ApplicationContext.get_instance()
-Builder.load_file(join('screens', 'paint_effect_screen.kv'))
+Builder.load_file(join('apps', 'client', 'screens', 'paint_effect_screen.kv'))
 
 
 class PaintEffectScreen(FocusBehavior, Screen):
@@ -29,16 +29,22 @@ class PaintEffectScreen(FocusBehavior, Screen):
         Clock.unschedule(self.send_current_frame)
 
     def send_current_frame(self, time_delta):
-        parameters = PaintEffectParameters()
-        parameters.display_size = self.__display.get_size()
-        brush_color = self.ids.brush_color_button.background_color
-        self.__touch_widget.set_brush_color(brush_color)
-        parameters.image = self.__touch_widget.capture_image()
-        self.__effect.apply(parameters)
-        image = self.__effect.get_image()
+        try:
+            parameters = PaintEffectParameters()
+            parameters.display_size = self.__display.get_size()
+            brush_color = self.ids.brush_color_button.background_color
+            self.__touch_widget.set_brush_color(brush_color)
+            parameters.image = self.__touch_widget.capture_image()
+            self.__effect.apply(parameters)
+            image = self.__effect.get_image()
 
-        self.__effect_provider.set_image(image)
-        self.__effect_provider.apply_image()
+            self.__effect_provider.set_image(image)
+            self.__effect_provider.apply_image()
+        except Exception as ex:
+            popup = ErrorWindow()
+            popup.gather_traces(ex.message)
+            Clock.unschedule(self.send_current_frame)
+            popup.open()
 
     def schedule_frame_updates(self):
         Clock.unschedule(self.send_current_frame)

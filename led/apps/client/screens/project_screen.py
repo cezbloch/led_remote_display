@@ -4,7 +4,7 @@ from kivy.lang import Builder
 from os.path import join
 
 Context = ApplicationContext.get_instance()
-Builder.load_file(join('screens', 'project_screen.kv'))
+Builder.load_file(join('apps', 'client', 'screens', 'project_screen.kv'))
 
 
 class ProjectScreen(Screen):

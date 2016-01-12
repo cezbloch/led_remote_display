@@ -1,6 +1,6 @@
 from kivy.app import App
-from networking.factories import ServerFactory
-from ui.display_widget import DisplayWidget
+from led.networking.factories import ServerFactory
+from led.ui.display_widget import DisplayWidget
 
 
 class SimulatorWidget(DisplayWidget):

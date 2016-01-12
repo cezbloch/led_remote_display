@@ -1,7 +1,5 @@
-from kivy.uix.button import Button
-from kivy.uix.togglebutton import ToggleButton
-
 from kivy.lang import Builder
+from kivy.uix.togglebutton import ToggleButton
 
 Builder.load_string("""
 <ColorButton>
@@ -9,6 +7,7 @@ Builder.load_string("""
     background_normal: ''
     background_down: ''
 """)
+
 
 class ColorButton(ToggleButton):
     pass

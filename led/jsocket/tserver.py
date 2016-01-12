@@ -28,7 +28,7 @@ import socket
 import time
 import logging
 
-from jsocket import jsocket_base
+from led.jsocket import jsocket_base
 
 logger = logging.getLogger("jsocket.tserver")
 

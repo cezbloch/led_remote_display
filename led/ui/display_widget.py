@@ -1,7 +1,7 @@
 from kivy.uix.image import Image
 from kivy.graphics.texture import Texture
 from kivy.clock import Clock
-import PIL
+from PIL.Image import FLIP_TOP_BOTTOM
 
 
 class DisplayWidget(Image):
@@ -9,15 +9,15 @@ class DisplayWidget(Image):
         super(DisplayWidget, self).__init__(**kwargs)
         self.buf_size = None
         self.my_image = None
-        Clock.schedule_interval(self.update, 1/60.)
+        Clock.schedule_interval(self.update, 1/30.)
 
     def create_texture(self):
-        if self.my_image.size == self.buf_size:
+        if self.my_image is not None and self.my_image.size == self.buf_size:
             width, height = self.size
             scaled_image = self.my_image.resize((int(width), int(height)))
             texture = Texture.create(size=self.size)
-            data_bytes = scaled_image.tobytes()
-            texture.blit_buffer(data_bytes, colorfmt='rgb', bufferfmt='ubyte')
+            aaa = scaled_image.convert('RGBA').tostring()
+            texture.blit_buffer(aaa, colorfmt='rgba', bufferfmt='ubyte')
             self.texture = texture
         else:
             #TODO: log something
@@ -25,7 +25,7 @@ class DisplayWidget(Image):
 
     def display_frame(self, image):
         # just update image in this thread - comes from server thread
-        self.my_image = image.transpose(PIL.Image.FLIP_TOP_BOTTOM)
+        self.my_image = image.transpose(FLIP_TOP_BOTTOM)
 
     def set_size(self, buf_size):
         self.buf_size = buf_size

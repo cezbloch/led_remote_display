@@ -8,9 +8,10 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.behaviors import FocusBehavior
 from os.path import join
 from ui.color_selector import ColorSelector
+from ui.error_window import ErrorWindow
 
 Context = ApplicationContext.get_instance()
-Builder.load_file(join('screens', 'text_effect_screen.kv'))
+Builder.load_file(join('apps', 'client', 'screens', 'text_effect_screen.kv'))
 
 
 class TextEffectScreen(FocusBehavior, Screen):
@@ -22,19 +23,25 @@ class TextEffectScreen(FocusBehavior, Screen):
         self.__text_effect = TextEffectFacade()
 
     def recreate_text_effect(self):
-        width, height = self.__display.get_size()
-        font = Font()
-        font.auto_adjust_font_size_to_height(height)
+        try:
+            width, height = self.__display.get_size()
+            font = Font()
+            font.auto_adjust_font_size_to_height(height)
 
-        parameters = TextEffectParameters()
+            parameters = TextEffectParameters()
 
-        parameters.text_color = Color.from_normalized_float(self.ids.text_color_button.background_color)
-        parameters.background_color = Color.from_normalized_float(self.ids.background_color_button.background_color)
-        parameters.text = self.ids.text_input.text
-        parameters.display_size = self.__display.get_size()
-        parameters.font = font
+            parameters.text_color = Color.from_normalized_float(self.ids.text_color_button.background_color)
+            parameters.background_color = Color.from_normalized_float(self.ids.background_color_button.background_color)
+            parameters.text = self.ids.text_input.text
+            parameters.display_size = self.__display.get_size()
+            parameters.font = font
 
-        self.__text_effect.apply(parameters)
+            self.__text_effect.apply(parameters)
+        except Exception as ex:
+            popup = ErrorWindow()
+            popup.gather_traces(ex.message)
+            Clock.unschedule(self.send_current_frame)
+            popup.open()
 
     def on_enter(self, *args):
         self.recreate_text_effect()
@@ -44,9 +51,15 @@ class TextEffectScreen(FocusBehavior, Screen):
         Clock.unschedule(self.send_current_frame)
 
     def send_current_frame(self, time_delta):
-        image = self.__text_effect.get_next_frame()
-        self.__effect_provider.set_image(image)
-        self.__effect_provider.apply_image()
+        try:
+            image = self.__text_effect.get_next_frame()
+            self.__effect_provider.set_image(image)
+            self.__effect_provider.apply_image()
+        except Exception as ex:
+            popup = ErrorWindow()
+            popup.gather_traces(ex.message)
+            Clock.unschedule(self.send_current_frame)
+            popup.open()
 
     def schedule_frame_updates(self):
         Clock.unschedule(self.send_current_frame)

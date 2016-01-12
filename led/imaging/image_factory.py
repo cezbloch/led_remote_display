@@ -1,5 +1,4 @@
-from color import Color
-from PIL import Image
+import PIL
 from random import randint
 
 
@@ -15,25 +14,25 @@ class ImageFactory(object):
     @staticmethod
     def create_rgb_image(size, color=None):
         if color is None:
-            return Image.new('RGB', size)
+            return PIL.Image.new('RGB', size)
         else:
-            return Image.new('RGB', size, color.get_as_tuple())
+            return PIL.Image.new('RGB', size, color.get_as_tuple())
 
     @staticmethod
     def create_rgba_image(size, color=None):
         if color is None:
-            return Image.new('RGBA', size)
+            return PIL.Image.new('RGBA', size)
         else:
-            return Image.new('RGBA', size, color)
+            return PIL.Image.new('RGBA', size, color)
 
     @staticmethod
     def create_image(mode, size):
-        image = Image.new(mode, size)
+        image = PIL.Image.new(mode, size)
         return image
 
     @staticmethod
     def create_image_from_string(mode, size, data):
-        image = Image.frombytes(mode, size, data)
+        image = PIL.Image.fromstring(mode, size, data)
         return image
 
     @staticmethod

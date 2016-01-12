@@ -1,8 +1,9 @@
 from PIL import ImageFont
+from os.path import join
 
 
 class Font(object):
-    def __init__(self, size=10, font_path="arial.ttf"):
+    def __init__(self, size=10, font_path=join('apps', 'client', 'resources', 'fonts', 'Arcon.otf')):
         self.__size = size
         self.__font_path = font_path
         self.__font = ImageFont.truetype(self.__font_path, self.__size)

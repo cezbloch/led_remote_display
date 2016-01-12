@@ -71,5 +71,5 @@
 	@endcode
 	
 """
-from jsocket.jsocket_base import *
-from jsocket.tserver import *
+from led.jsocket.jsocket_base import *
+from led.jsocket.tserver import *

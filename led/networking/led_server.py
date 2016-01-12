@@ -1,9 +1,9 @@
-import jsocket
+from led.jsocket.tserver import ThreadedServer, ServerFactoryThread
 
 
-class LedServerThreaded(jsocket.ThreadedServer):
+class LedServerThreaded(ThreadedServer):
     def __init__(self, message_unpacker, **kwargs):
-        jsocket.ThreadedServer.__init__(self, **kwargs)
+        ThreadedServer.__init__(self, **kwargs)
         self.timeout = 2.0
         self.message_unpacker = message_unpacker
 
@@ -15,7 +15,7 @@ class LedServerThreaded(jsocket.ThreadedServer):
         self.join()
 
 
-class LedServerFactoryThreaded(jsocket.ServerFactoryThread):
+class LedServerFactoryThreaded(ServerFactoryThread):
     def __init__(self):
         super(LedServerFactoryThreaded, self).__init__()
         self.timeout = 2.0

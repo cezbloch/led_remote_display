@@ -4,7 +4,7 @@ from kivy.lang import Builder
 from os.path import join
 from os import getcwd
 
-Builder.load_file(join('screens', 'file_chooser_screen.kv'))
+Builder.load_file(join('apps', 'client', 'screens', 'file_chooser_screen.kv'))
 
 
 class FileChooserScreen(Screen):

@@ -26,7 +26,6 @@ Builder.load_string("""
 """)
 
 
-
 class ColorSelector(Popup):
     pass
 

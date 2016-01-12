@@ -1,0 +1,4 @@
+title=LEDy
+author=KeesWare
+orientation=portrait
+requirements = pil,kivy,numpy
