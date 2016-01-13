@@ -37,8 +37,8 @@
     },
 
     "loggers": {
-        "my_module": {
-            "level": "ERROR",
+        "apps": {
+            "level": "INFO",
             "handlers": ["console"],
             "propagate": "no"
         }

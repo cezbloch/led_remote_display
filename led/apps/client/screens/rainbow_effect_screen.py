@@ -7,6 +7,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.behaviors import FocusBehavior
 from os.path import join
 from ui.error_window import ErrorWindow
+import logging
 
 Context = ApplicationContext.get_instance()
 Builder.load_file(join('apps', 'client', 'screens', 'rainbow_effect_screen.kv'))
@@ -15,6 +16,7 @@ Builder.load_file(join('apps', 'client', 'screens', 'rainbow_effect_screen.kv'))
 class RainbowEffectScreen(FocusBehavior, Screen):
     def __init__(self, **kwargs):
         super(RainbowEffectScreen, self).__init__(**kwargs)
+        self.__logger = logging.getLogger()
         self._selected_button = None
         self._effect_provider = Context.get_effect_provider()
         self._time_elapsed = 0
@@ -22,6 +24,7 @@ class RainbowEffectScreen(FocusBehavior, Screen):
 
     def on_color(self):
         try:
+            self.__logger.info(__name__ + " chaning color")
             if self._selected_button is None:
                 self._selected_button = self.ids.right_color_button
             self._selected_button.background_color = self.ids.color_picker.color
@@ -34,8 +37,10 @@ class RainbowEffectScreen(FocusBehavior, Screen):
 
     def apply_effect(self, time_delta):
         try:
-            if not self.focused:
-                Clock.unschedule(self.apply_effect)
+            self.__logger.info(__name__ + " drawing")
+            #if not self.focused:
+            #    self.__logger.info(__name__ + " unscheduling")
+            #    Clock.unschedule(self.apply_effect)
 
             display_size = Context.get_display().get_size()
             effect = RainbowEffectAnimation(display_size)
@@ -66,6 +71,7 @@ class RainbowEffectScreen(FocusBehavior, Screen):
                 self._direction = "Up"
                 self._time_elapsed = 0
         except Exception as ex:
+            self.__logger.error(__name__ + " drawing frame failed")
             popup = ErrorWindow()
             popup.gather_traces(ex.message)
             Clock.unschedule(self.send_current_frame)
@@ -73,13 +79,16 @@ class RainbowEffectScreen(FocusBehavior, Screen):
 
     def animation_speed_changed(self):
         try:
+            self.__logger.info(__name__ + " chaning framerate")
             Clock.unschedule(self.apply_effect)
             fps = self.ids.speed_slider.value
             if fps != 0:
                 period = 1/fps
                 Clock.schedule_interval(self.apply_effect, period)
+                self.__logger.info(__name__ + " new fps")
             self.ids.fps_label.text = "FPS: {:.2f}".format(fps)
         except Exception as ex:
+            self.__logger.error(__name__ + " failed applying new speed")
             popup = ErrorWindow()
             popup.gather_traces(ex.message)
             Clock.unschedule(self.send_current_frame)
