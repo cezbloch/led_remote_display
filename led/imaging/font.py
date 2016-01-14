@@ -16,7 +16,7 @@ class Font(object):
         font_size = 0
         while letter_size < height:
             font_size += 1
-            self.__font = ImageFont.truetype(self.__font.path, font_size)
+            self.__font = ImageFont.truetype(self.__font_path, font_size)
             letter_size = self.get_ascent() - self.get_descent()
 
     def get_text_size(self, text):
