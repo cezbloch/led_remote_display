@@ -9,7 +9,6 @@ class DisplayWidget(Image):
         super(DisplayWidget, self).__init__(**kwargs)
         self.buf_size = None
         self.my_image = None
-        Clock.schedule_interval(self.update, 1/30.)
 
     def create_texture(self):
         if self.my_image is not None and self.my_image.size == self.buf_size:
@@ -26,6 +25,7 @@ class DisplayWidget(Image):
     def display_frame(self, image):
         # just update image in this thread - comes from server thread
         self.my_image = image.transpose(FLIP_TOP_BOTTOM)
+        Clock.schedule_once(self.update)
 
     def set_size(self, buf_size):
         self.buf_size = buf_size

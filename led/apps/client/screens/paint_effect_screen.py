@@ -22,6 +22,7 @@ class PaintEffectScreen(FocusBehavior, Screen):
         self.__color_selector = ColorSelector()
         self.__effect = PaintEffectFacade()
         self.__touch_widget = None
+        self.__frame_count = 0
 
     def on_enter(self, *args):
         self.schedule_frame_updates()
@@ -32,11 +33,17 @@ class PaintEffectScreen(FocusBehavior, Screen):
 
     def send_current_frame(self, time_delta):
         try:
+            if self.__frame_count % 10 == 0:
+                self.__logger.info(__name__ + " drawing frame {0}".format(self.__frame_count))
+            self.__frame_count += 1
+
             parameters = PaintEffectParameters()
             parameters.display_size = self.__display.get_size()
             brush_color = self.ids.brush_color_button.background_color
             self.__touch_widget.set_brush_color(brush_color)
             parameters.image = self.__touch_widget.capture_image()
+            if parameters.image is None:
+                return
             self.__effect.apply(parameters)
             image = self.__effect.get_image()
 
