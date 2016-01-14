@@ -7,6 +7,7 @@ from kivy.uix.behaviors import FocusBehavior
 from os.path import join
 from ui.color_selector import ColorSelector
 from ui.error_window import ErrorWindow
+import logging
 
 Context = ApplicationContext.get_instance()
 Builder.load_file(join('apps', 'client', 'screens', 'paint_effect_screen.kv'))
@@ -15,6 +16,7 @@ Builder.load_file(join('apps', 'client', 'screens', 'paint_effect_screen.kv'))
 class PaintEffectScreen(FocusBehavior, Screen):
     def __init__(self, **kwargs):
         super(PaintEffectScreen, self).__init__(**kwargs)
+        self.__logger = logging.getLogger()
         self.__effect_provider = Context.get_effect_provider()
         self.__display = Context.get_display()
         self.__color_selector = ColorSelector()
@@ -55,6 +57,7 @@ class PaintEffectScreen(FocusBehavior, Screen):
             Clock.schedule_interval(self.send_current_frame, period)
 
         self.ids.speed_label.text = "FPS: {:.2f}".format(fps)
+        self.__logger.info(__name__ + " scheduling with framerate={0}".format(fps))
 
     def button_pressed(self, button):
         self.__color_selector.color = button.background_color

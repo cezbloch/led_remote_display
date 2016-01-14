@@ -7,6 +7,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.behaviors import FocusBehavior
 from os.path import join
 from ui.error_window import ErrorWindow
+from ui.color_selector import ColorSelector
 import logging
 
 Context = ApplicationContext.get_instance()
@@ -17,30 +18,33 @@ class RainbowEffectScreen(FocusBehavior, Screen):
     def __init__(self, **kwargs):
         super(RainbowEffectScreen, self).__init__(**kwargs)
         self.__logger = logging.getLogger()
-        self._selected_button = None
         self._effect_provider = Context.get_effect_provider()
+        self.__color_selector = ColorSelector()
         self._time_elapsed = 0
         self._direction = "Up"
+        self.__frame_count = 0
 
-    def on_color(self):
-        try:
-            self.__logger.info(__name__ + " chaning color")
-            if self._selected_button is None:
-                self._selected_button = self.ids.right_color_button
-            self._selected_button.background_color = self.ids.color_picker.color
-            self._time_elapsed = 0
-        except Exception as ex:
-            popup = ErrorWindow()
-            popup.gather_traces(ex.message)
-            Clock.unschedule(self.send_current_frame)
-            popup.open()
+    def button_pressed(self, button):
+        self.__logger.info(__name__ + " changing color for button={0}".format(button.text))
+        self.__color_selector = ColorSelector()
+        self.__color_selector.color = button.background_color
+        self.__color_selector.unbind()
+        self.__color_selector.bind(color=button.setter('background_color'))
+        self.__color_selector.open()
+        self._time_elapsed = 0
+
+    def on_enter(self, *args):
+        pass
+        # TODO: this gets triggered when loading application - trigger only when entering project screen
+        #self.animation_speed_changed()
+
+    def on_leave(self, *args):
+        Clock.unschedule(self.apply_effect)
 
     def apply_effect(self, time_delta):
         try:
-            self.__logger.info(__name__ + " drawing")
-            #if not self.focused:
-            #    self.__logger.info(__name__ + " unscheduling")
-            #    Clock.unschedule(self.apply_effect)
+            self.__logger.info(__name__ + " drawing frame {0}".format(self.__frame_count))
+            self.__frame_count += 1
 
             display_size = Context.get_display().get_size()
             effect = RainbowEffectAnimation(display_size)
@@ -74,22 +78,21 @@ class RainbowEffectScreen(FocusBehavior, Screen):
             self.__logger.error(__name__ + " drawing frame failed")
             popup = ErrorWindow()
             popup.gather_traces(ex.message)
-            Clock.unschedule(self.send_current_frame)
+            Clock.unschedule(self.apply_effect)
             popup.open()
 
     def animation_speed_changed(self):
         try:
-            self.__logger.info(__name__ + " chaning framerate")
             Clock.unschedule(self.apply_effect)
             fps = self.ids.speed_slider.value
             if fps != 0:
                 period = 1/fps
                 Clock.schedule_interval(self.apply_effect, period)
-                self.__logger.info(__name__ + " new fps")
+            self.__logger.info(__name__ + " changing framerate - new fps={:.2f}".format(fps))
             self.ids.fps_label.text = "FPS: {:.2f}".format(fps)
         except Exception as ex:
             self.__logger.error(__name__ + " failed applying new speed")
             popup = ErrorWindow()
             popup.gather_traces(ex.message)
-            Clock.unschedule(self.send_current_frame)
+            Clock.unschedule(self.apply_effect)
             popup.open()

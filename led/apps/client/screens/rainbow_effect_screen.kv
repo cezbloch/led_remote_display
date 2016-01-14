@@ -14,14 +14,14 @@
                     text: "Left Start"
                     background_color: (1, 0, 0, 1)
                     group: 'color'
-                    on_press: root._selected_button = self
+                    on_press: root.button_pressed(self)
 
                 ColorButton:
                     id: left_color_button_end
                     text: "Left End"
                     background_color: (0, 1, 0, 1)
                     group: 'color'
-                    on_press: root._selected_button = self
+                    on_press: root.button_pressed(self)
             BoxLayout:
                 orientation: 'vertical'
                 ColorButton:
@@ -29,19 +29,14 @@
                     text: "Right Start"
                     background_color: (0, 0, 1, 1)
                     group: 'color'
-                    on_press: root._selected_button = self
+                    on_press: root.button_pressed(self)
 
                 ColorButton:
                     id: right_color_button_end
                     text: "Right End"
                     background_color: (1, 1, 1, 1)
                     group: 'color'
-                    on_press: root._selected_button = self
-
-        ColorPicker:
-            id: color_picker
-            color: (0, 0, 1, 1)
-            on_color: root.on_color()
+                    on_press: root.button_pressed(self)
 
         BoxLayout:
             orientation: 'horizontal'

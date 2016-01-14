@@ -9,6 +9,7 @@ from kivy.uix.behaviors import FocusBehavior
 from os.path import join
 from ui.color_selector import ColorSelector
 from ui.error_window import ErrorWindow
+import logging
 
 Context = ApplicationContext.get_instance()
 Builder.load_file(join('apps', 'client', 'screens', 'text_effect_screen.kv'))
@@ -17,6 +18,7 @@ Builder.load_file(join('apps', 'client', 'screens', 'text_effect_screen.kv'))
 class TextEffectScreen(FocusBehavior, Screen):
     def __init__(self, **kwargs):
         super(TextEffectScreen, self).__init__(**kwargs)
+        self.__logger = logging.getLogger()
         self.__effect_provider = Context.get_effect_provider()
         self.__display = Context.get_display()
         self.__color_selector = ColorSelector()
@@ -24,6 +26,7 @@ class TextEffectScreen(FocusBehavior, Screen):
 
     def recreate_text_effect(self):
         try:
+            self.__logger.info(__name__ + " recreating text effect")
             width, height = self.__display.get_size()
             font = Font()
             font.auto_adjust_font_size_to_height(height)
@@ -38,6 +41,7 @@ class TextEffectScreen(FocusBehavior, Screen):
 
             self.__text_effect.apply(parameters)
         except Exception as ex:
+            self.__logger.info(__name__ + " recreate text effect failed with ex={0}".format(ex.message))
             popup = ErrorWindow()
             popup.gather_traces(ex.message)
             Clock.unschedule(self.send_current_frame)
@@ -56,6 +60,7 @@ class TextEffectScreen(FocusBehavior, Screen):
             self.__effect_provider.set_image(image)
             self.__effect_provider.apply_image()
         except Exception as ex:
+            self.__logger.info(__name__ + " sending frame failed with ex={0}".format(ex.message))
             popup = ErrorWindow()
             popup.gather_traces(ex.message)
             Clock.unschedule(self.send_current_frame)
@@ -71,14 +76,12 @@ class TextEffectScreen(FocusBehavior, Screen):
             Clock.schedule_interval(self.send_current_frame, period)
 
         self.ids.speed_label.text = "Scroll Speed: {:.2f}".format(fps)
+        self.__logger.info(__name__ + " scheduling with framerate={0}".format(fps))
 
     def button_pressed(self, button):
         self.__color_selector = ColorSelector()
         self.__color_selector.color = button.background_color
         self.__color_selector.unbind()
-        # The double property setter assignment is a workaround for problem that previous button color gets set instead of the passed one
-        # probably it's because unbinding the callback does not work
-        self.__color_selector.bind(color=button.setter('background_color'))
         self.__color_selector.bind(color=button.setter('background_color'))
         self.__color_selector.bind(color=self.color_changed)
         self.__color_selector.open()
