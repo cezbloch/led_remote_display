@@ -1,4 +1,4 @@
-from led.jsocket.tserver import ThreadedServer, ServerFactoryThread
+from jsocket.tserver import ThreadedServer, ServerFactoryThread
 
 
 class LedServerThreaded(ThreadedServer):

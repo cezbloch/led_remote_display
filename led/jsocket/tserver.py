@@ -28,9 +28,9 @@ import socket
 import time
 import logging
 
-from led.jsocket import jsocket_base
+from jsocket import jsocket_base
 
-logger = logging.getLogger("jsocket.tserver")
+logger = logging.getLogger()
 
 class ThreadedServer(threading.Thread, jsocket_base.JsonServer):
 	def __init__(self, **kwargs):
