@@ -9,11 +9,11 @@ class ConnectionProvider(object):
     def is_connected(self):
         return self._isConnected
 
-    def connect(self, address, port):
+    def connect(self, **kwargs):
         if self.is_connected():
             self.disconnect()
 
-        self._client = ClientFactory.create_and_connect_client(address=address, port=port)
+        self._client = ClientFactory.create_and_connect_client(**kwargs)
         if self._client is not None:
             self._isConnected = True
 

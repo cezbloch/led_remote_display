@@ -14,6 +14,7 @@ class SettingsProvider(object):
     def set_defaults(self):
         self.__config.setdefaults('connection', {
             'reconnect_on_startup': False,
+            'use_fake_sockets': True,
             'ip_address': '127.0.0.1',
             'port_number': 6666})
         self.__config.setdefaults('panel', {
@@ -26,6 +27,11 @@ class SettingsProvider(object):
              'title': 'Reconnect on startup',
              'section': 'connection',
              'key': 'reconnect_on_startup'},
+
+            {'type': 'bool',
+             'title': 'Use fake sockets',
+             'section': 'connection',
+             'key': 'use_fake_sockets'},
 
             {'type': 'string',
              'title': 'IP address',
@@ -47,6 +53,7 @@ class SettingsProvider(object):
             {'type': 'numeric',
              'title': 'Panel Height',
              'section': 'panel',
-             'key': 'height'}])
+             'key': 'height'}
+        ])
 
         settings.add_json_panel('Display Connection', self.__config, data=settings_json)

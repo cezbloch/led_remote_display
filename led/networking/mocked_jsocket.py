@@ -1,4 +1,4 @@
-class LedServerThreaded(object):
+class LedServerThreadedMock(object):
     def __init__(self, unpacker, **kwargs):
         pass
 
@@ -21,7 +21,7 @@ class LedServerThreaded(object):
         pass
 
 
-class JsonClient(object):
+class JsonClientMock(object):
     def __init__(self, **kwargs):
         pass
 
