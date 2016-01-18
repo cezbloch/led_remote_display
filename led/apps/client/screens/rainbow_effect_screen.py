@@ -44,7 +44,7 @@ class RainbowEffectScreen(FocusBehavior, Screen):
     def apply_effect(self, time_delta):
         try:
             if self.__frame_count % 10 == 0:
-                self.__logger.info(__name__ + " drawing frame {0}".format(self.__frame_count))
+                self.__logger.debug(__name__ + " drawing frame {0}".format(self.__frame_count))
             self.__frame_count += 1
 
             display_size = Context.get_display().get_size()
