@@ -1,4 +1,3 @@
-#:import TouchWidget ui.touch_widget
 #:import ColorButton ui.color_button
 
 <PaintEffectScreen>
@@ -11,7 +10,7 @@
             size_hint: 1, 0.2
             ColorButton:
                 id: brush_color_button
-                text: "Brush Color"
+                text: "Color"
                 background_color: (0, 0, 1, 1)
                 on_press: root.button_pressed(self)
 
@@ -26,26 +25,10 @@
             Slider:
                 id: point_size_slider
                 min: 1
-                max: 100
-                value: 10
+                max: 5
+                value: 1
                 on_value: root.point_size_changed()
 
             Label:
-                id: speed_label
+                id: point_size_label
                 size_hint: 0.3, 1
-                text: 'point size'
-
-        BoxLayout:
-            orientation: 'horizontal'
-            size_hint: 1, 0.2
-            Slider:
-                id: scroll_speed_slider
-                min: 0
-                max: 30
-                value: 15
-                on_value: root.schedule_frame_updates()
-
-            Label:
-                id: speed_label
-                size_hint: 0.3, 1
-                text: 'scroll speed'
