@@ -31,7 +31,7 @@ class LedApp(App):
 
     # called when building UI after config
     def build(self):
-        self.use_kivy_settings = False
+        self.use_kivy_settings = True
         self.settings_cls = DisplaySettings
         #settings are loaded only here
         self.__context.startup()
