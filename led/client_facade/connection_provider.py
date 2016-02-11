@@ -1,26 +1,24 @@
-from networking.factories import ClientFactory
+from networking.twisted_client import Client
 
 
 class ConnectionProvider(object):
     def __init__(self):
-        self._isConnected = False
-        self._client = None
+        self.__client = Client()
 
     def is_connected(self):
-        return self._isConnected
+        return self.__client.is_connected()
 
     def connect(self, **kwargs):
         if self.is_connected():
             self.disconnect()
 
-        self._client = ClientFactory.create_and_connect_client(**kwargs)
-        if self._client is not None:
-            self._isConnected = True
+        address = kwargs['address']
+        port = kwargs['port']
+
+        self.__client.connect(address, port)
 
     def get_client(self):
-        return self._client
+        return self.__client
 
     def disconnect(self):
-        self._isConnected = False
-        if self._client is not None:
-            self._client.close()
+        self.__client.disconnect()

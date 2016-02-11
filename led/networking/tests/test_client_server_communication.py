@@ -4,15 +4,14 @@ import unittest
 from imaging.image_factory import ImageFactory
 
 from networking.factories import ServerFactory, ClientFactory
-from networking.message_factory import MessageFactory
 from networking.tests.mock_led_device import MockLedDevice
 
 
 class TestClientServerLocalCommunication(unittest.TestCase):
     def setUp(self):
         self.device = MockLedDevice()
-        self.server = ServerFactory.create_server(self.device)
-        self.client = ClientFactory.create_and_connect_client()
+        self.server = ServerFactory.create_server(self.device, address='localhost', port=4567)
+        self.client = ClientFactory.create_and_connect_client(address='localhost', port=4567, fake=False)
 
     def tearDown(self):
         self.client.close()

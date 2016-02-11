@@ -21,7 +21,8 @@ class TouchWidget(FloatLayout):
         # add two points to make first one-point line
         self.__points.append((touch.x, touch.y))
         self.__points.append((touch.x, touch.y))
-        self.move_callback(self.__points)
+        if self.move_callback is not None:
+            self.move_callback(self.__points)
 
         return True
 

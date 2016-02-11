@@ -1,7 +1,7 @@
 import unittest
 
 import defines
-from imaging.image_factory import *
+from imaging.image_factory import ImageFactory
 
 
 class TestImageFactory(unittest.TestCase):

@@ -1,3 +1,6 @@
+from kivy.support import install_twisted_reactor
+install_twisted_reactor()
+
 from kivy.config import Config
 Config.set('graphics', 'width', '600')
 Config.set('graphics', 'height', '800')

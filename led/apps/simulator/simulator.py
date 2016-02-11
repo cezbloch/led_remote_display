@@ -1,19 +1,25 @@
+from kivy.support import install_twisted_reactor
+install_twisted_reactor()
+
 from kivy.app import App
-from led.networking.factories import ServerFactory
 from led.ui.display_widget import DisplayWidget
+from networking.twisted_server import LedServer
+from twisted.internet import reactor
 
 
 class SimulatorWidget(DisplayWidget):
     def __init__(self, **kwargs):
         super(SimulatorWidget, self).__init__(**kwargs)
-        self.server = ServerFactory.create_server(self, address="127.0.0.1", port=6666)
+        self.server = LedServer(self)
+        self.server.start(6666)
 
     def close(self):
-        self.server.stop()
-        self.server.join()
+        self.server.close()
 
 
 class LedDisplaySimulatorApp(App):
+    server = None
+
     def build(self):
         self.server = SimulatorWidget()
         return self.server
