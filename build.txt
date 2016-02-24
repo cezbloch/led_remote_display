@@ -1,0 +1,1 @@
+connection with adb dropping (device going online and offline) - use USB 2.0 port directly -> not via USB 3.0 Hub
