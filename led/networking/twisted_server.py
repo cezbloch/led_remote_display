@@ -1,28 +1,35 @@
 #import logging
 from message_unpacker import MessageUnpacker
-from twisted.internet.protocol import Factory, Protocol
-from twisted.protocols.basic import LineReceiver
-from twisted.internet.protocol import ReconnectingClientFactory
+from twisted.internet.protocol import Factory
+from twisted.protocols.basic import NetstringReceiver
 
 
-class LedServerProtocol(LineReceiver):
+class LedServerProtocol(NetstringReceiver):
     #def __init__(self, device):
     #    self.__logger = logging.getLogger()
 
     def connectionMade(self):
         pass
 
-    def dataReceived(self, data):
+    def stringReceived(self, data):
         #self.__logger.debug(__name__ + "data with size {0} received from {1}".format(len(data), self.transport.getPeer()))
         self.factory.message_unpacker.process_command(data)
 
 
-class LedServerProtocolFactory(ReconnectingClientFactory):
+class LedServerProtocolFactory(Factory):
     protocol = LedServerProtocol
 
     def __init__(self, message_unpacker):
         #self.__logger = logging.getLogger()
         self.message_unpacker = message_unpacker
+
+    def clientConnectionLost(self, conn, reason):
+        #self.__logger.error(__name__ + "connection lost")
+        print "connection lost"
+
+    def clientConnectionFailed(self, conn, reason):
+        #self.__logger.error(__name__ + "connection failed")
+        print "connection failed"
 
 
 class LedServer(object):

@@ -68,10 +68,10 @@ class Client(object):
 
     def send_message(self, message):
         if self.connection and message:
-            self.connection.write(message)
+            self.connection.write('%d:%s,' % (len(message), message))
 
     def send_set_size(self, size):
-        self.__logger.debug(__name__ + "sending size message {0}".format(size))
+        self.__logger.debug(__name__ + " sending size message {0}".format(size))
         command = MessageFactory.create_set_size_message(size)
         self.send_message(command)
 
