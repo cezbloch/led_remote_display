@@ -17,7 +17,7 @@
    id="svg4136"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="RaspPi_B_Typ_2_bigger.svg"><metadata
+   sodipodi:docname="RaspPi_B_plus.svg"><metadata
      id="metadata4251"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><sodipodi:namedview
@@ -34,8 +34,8 @@
      id="namedview4249"
      showgrid="false"
      inkscape:zoom="3.1735128"
-     inkscape:cx="108.87066"
-     inkscape:cy="516.52789"
+     inkscape:cx="75.877168"
+     inkscape:cy="498.75253"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -260,8 +260,8 @@
        id="g4260"
        transform="translate(0,-35.866549)"><rect
          id="rect4161-0"
-         ry="29.755939"
-         rx="48.828041"
+         ry="0"
+         rx="0"
          height="633.3764"
          width="195.31216"
          y="1086.019"
