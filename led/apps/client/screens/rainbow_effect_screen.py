@@ -1,4 +1,4 @@
-from client_facade.context import ApplicationContext
+from facades.context import ApplicationContext
 from imaging.rainbow_effect import RainbowEffectAnimation
 from imaging.color import Color
 from kivy.clock import Clock

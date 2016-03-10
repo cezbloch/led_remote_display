@@ -1,5 +1,5 @@
 from kivy.uix.screenmanager import Screen
-from client_facade.context import ApplicationContext
+from facades.context import ApplicationContext
 from kivy.lang import Builder
 from os.path import join
 

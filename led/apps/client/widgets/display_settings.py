@@ -1,4 +1,4 @@
-from client_facade.context import ApplicationContext
+from facades.context import ApplicationContext
 from kivy.uix.settings import Settings
 from ui.error_window import ErrorWindow
 

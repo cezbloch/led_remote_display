@@ -1,5 +1,5 @@
-from client_facade.context import ApplicationContext
-from client_facade.paint_effect_facade import PaintEffectFacade, PaintEffectParameters
+from facades.context import ApplicationContext
+from facades.paint_effect_facade import PaintEffectFacade, PaintEffectParameters
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivy.uix.behaviors import FocusBehavior

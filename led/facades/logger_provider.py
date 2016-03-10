@@ -2,6 +2,14 @@ import os
 import json
 import logging.config
 
+# Level	Numeric value
+# CRITICAL	50
+# ERROR	40
+# WARNING	30
+# INFO	20
+# DEBUG	10
+# NOTSET	0
+
 
 class LoggerProvider(object):
     def setup_logging(self, default_path='logging.json', default_level=logging.INFO, env_key='LOG_CFG'):

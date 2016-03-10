@@ -4,12 +4,12 @@ install_twisted_reactor()
 from kivy.app import App
 from led.ui.display_widget import DisplayWidget
 from networking.twisted_server import LedServer
-from twisted.internet import reactor
-
+from facades.logger_provider import LoggerProvider
 
 class SimulatorWidget(DisplayWidget):
     def __init__(self, **kwargs):
         super(SimulatorWidget, self).__init__(**kwargs)
+        LoggerProvider().setup_logging()
         self.server = LedServer(self)
         self.server.start(6666)
 

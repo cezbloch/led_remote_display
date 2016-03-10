@@ -7,7 +7,7 @@ from PIL import Image
 
 sys.path.append('/home/pi/keesware/led/')
 print sys.path
-from device.device import Ws281xDevice
+from device.gpio_pwm_device import Ws281xDevice
 from imaging.image_factory import ImageFactory
 
 

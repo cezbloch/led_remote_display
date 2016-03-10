@@ -1,5 +1,5 @@
-from client_facade.context import ApplicationContext
-from client_facade.text_effect_facade import TextEffectFacade, TextEffectParameters
+from facades.context import ApplicationContext
+from facades.text_effect_facade import TextEffectFacade, TextEffectParameters
 from imaging.font import Font
 from imaging.color import Color
 from kivy.clock import Clock

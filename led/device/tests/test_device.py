@@ -1,5 +1,5 @@
 import unittest
-from device.device import Ws281xDevice
+from device.gpio_pwm_device import Ws281xDevice
 from mocks import MockStripeFactory
 from imaging.image_factory import ImageFactory
 from imaging.color import Color

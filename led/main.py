@@ -5,7 +5,7 @@ from kivy.config import Config
 Config.set('graphics', 'width', '600')
 Config.set('graphics', 'height', '800')
 
-from client_facade.context import ApplicationContext
+from facades.context import ApplicationContext
 from apps.client.widgets.display_settings import DisplaySettings
 
 from kivy.app import App
