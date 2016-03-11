@@ -43,10 +43,10 @@ requirements = pil,kivy,numpy,twisted
 #garden_requirements =
 
 # (str) Presplash of the application
-#presplash.filename = %(source.dir)s/data/presplash.png
+presplash.filename = %(source.dir)apps/client/resources/loading.gif
 
 # (str) Icon of the application
-#icon.filename = %(source.dir)s/data/icon.png
+icon.filename = %(source.dir)apps/client/resources/icon_256.png
 
 # (str) Supported orientation (one of landscape, portrait or all)
 orientation = portrait
