@@ -1,0 +1,75 @@
+1. Install 
+sudo apt-get install hostapd dnsmasq
+
+2. the apt-get hosted copy of hostapd that is not compatible with the RTL8188CUS chipset (8level card). download and replace the installed binary version of hostapd 
+
+wget http://www.daveconroy.com/wp3/wp-content/uploads/2013/07/hostapd.zip
+unzip hostapd.zip 
+sudo mv /usr/sbin/hostapd /usr/sbin/hostapd.bak
+sudo mv hostapd /usr/sbin/hostapd.edimax 
+sudo ln -sf /usr/sbin/hostapd.edimax /usr/sbin/hostapd 
+sudo chown root.root /usr/sbin/hostapd 
+sudo chmod 755 /usr/sbin/hostapd
+
+or compile yourself from 
+http://www.daveconroy.com/turn-your-raspberry-pi-into-a-wifi-hotspot-with-edimax-nano-usb-ew-7811un-rtl8188cus-chipset/
+
+3. Edit 
+sudo nano /etc/hostapd/hostapd.conf
+
+interface=wlan0
+driver=rtl871xdrv
+
+# SSID sieci, jej kanalow oraz Operation mode (a = IEEE 802.11a, b = IEEE 802.1$
+ssid=KeesWareLed
+channel=7
+hw_mode=g
+
+# 0 = Open System Authentication
+# 1 = Shared Key Authentication
+auth_algs=1
+
+# Ustawienia szyfrowania sieci
+wpa=3
+wpa_passphrase=Syndrom7
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP CCMP
+rsn_pairwise=CCMP
+
+# 0 = accept unless in deny list
+# 1 = deny unless in accept list
+# 2 = use external RADIUS server (accept/deny lists are searched first)
+macaddr_acl=0
+
+# 0 - broadcast SSID
+# 1 - hidden SSID
+ignore_broadcast_ssid=0
+
+4. Edit DNSmasq and change lines
+sudo nano /etc/dnsmasq.conf
+
+interface=wlan0
+dhcp-range=192.168.0.2,192.168.0.50,12h
+
+5. set wlan0 IP address
+manually
+ifconfig wlan0 192.168.0.1 netmask 255.255.255.0
+
+or on system startup in 
+
+sudo nano /etc/network/interfaces
+allow-hotplug wlan0
+auto wlan0
+iface wlan0 inet static
+        address 192.168.0.1
+        broadcast 192.168.0.255
+
+6. restart stuff
+sudo /etc/init.d/dnsmasq restart
+sudo hostapd -d /etc/hostapd/hostapd.conf
+or
+sudo hostapd -dd /etc/hostapd/hostapd.conf
+
+7. Add to startup
+sudo nano /etc/default/hostapd
+DAEMON_CONF="/etc/hostapd/hostapd.conf"

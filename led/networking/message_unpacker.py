@@ -7,21 +7,21 @@ from binary_encoder import *
 
 
 class MessageUnpacker(object):
-    def __init__(self, server_handler, logger=logging.getLogger("jsocket.example_servers")):
+    def __init__(self, server_handler):
         self._server = server_handler
-        self._logger = logger
+        self._logger = logging.getLogger()
 
     def process_command(self, object):
         json_object = json.loads(object)
         if json_object != '':
             command = json_object[COMMAND]
-            if self.isCommand(command, COMMAND_SET_SIZE):
+            if self.is_object_a_command(command, COMMAND_SET_SIZE):
                 size = self.unpack_set_size_command(command)
                 self._logger.info("Setting size on device: " + str(size))
                 self._server.set_size(size)
-            elif self.isCommand(command, COMMAND_DISPLAY_FRAME):
+            elif self.is_object_a_command(command, COMMAND_DISPLAY_FRAME):
                 image = self.unpack_display_frame_command(command)
-                #self._logger.info("Displaying image with size: " + str(image.size))
+                self._logger.debug("Displaying image with size: " + str(image.size))
                 self._server.display_frame(image)
             else:
                 self._logger.error("Unknown command - dumping json: " + object)
@@ -29,7 +29,7 @@ class MessageUnpacker(object):
             self._logger.error("Empty json object!")
 
     @staticmethod
-    def isCommand(command, command_name):
+    def is_object_a_command(command, command_name):
         return command_name in command
 
     @staticmethod

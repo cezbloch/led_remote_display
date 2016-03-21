@@ -1,6 +1,5 @@
 from facades.context import ApplicationContext
 from kivy.uix.settings import Settings
-from ui.error_window import ErrorWindow
 
 Context = ApplicationContext.get_instance()
 
@@ -44,9 +43,6 @@ class DisplaySettings(Settings):
         self._update_ui()
 
     def on_connect_failed(self, reason):
-        popup = ErrorWindow()
-        popup.gather_traces(reason)
-        popup.open()
         self._update_ui()
 
     def disconnect(self):

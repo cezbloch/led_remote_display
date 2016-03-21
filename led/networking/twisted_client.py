@@ -52,9 +52,8 @@ class Client(object):
         self.connector = reactor.connectTCP(address, port, LedClientProtocolFactory(self))
 
     def disconnect(self):
-        self.__logger.debug(__name__ + "disconnecting".format())
+        self.__logger.info(__name__ + " disconnecting")
         self.connector.disconnect()
-        self.on_connection_lost("disconnected requested by client")
 
     def on_connection(self, connection):
         self.connection = connection
@@ -71,7 +70,7 @@ class Client(object):
             self.connection.write('%d:%s,' % (len(message), message))
 
     def send_set_size(self, size):
-        self.__logger.debug(__name__ + " sending size message {0}".format(size))
+        self.__logger.info(__name__ + " sending size message {0}".format(size))
         command = MessageFactory.create_set_size_message(size)
         self.send_message(command)
 
