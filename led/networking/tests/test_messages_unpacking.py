@@ -4,6 +4,7 @@ from networking.message_factory import *
 from networking.message_unpacker import *
 from networking.tests.mock_led_device import *
 
+
 class TestMessageUnpacking(unittest.TestCase):
     def setUp(self):
         self.device = MockLedDevice()

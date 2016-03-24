@@ -8,12 +8,9 @@ class ConnectionProvider(object):
     def is_connected(self):
         return self.__client.is_connected()
 
-    def connect(self, **kwargs):
+    def connect(self, address, port):
         if self.is_connected():
             self.disconnect()
-
-        address = kwargs['address']
-        port = kwargs['port']
 
         self.__client.connect(address, port)
 

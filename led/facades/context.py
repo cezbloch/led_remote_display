@@ -45,8 +45,7 @@ class ApplicationContext(object):
         if reconnect_on_startup:
             ip_address = config.get('connection', 'ip_address')
             port = config.getint('connection', 'port_number')
-            use_fake_sockets = config.getboolean('connection', 'use_fake_sockets')
-            self.__connection_provider.connect(address=ip_address, port=port, fake=use_fake_sockets)
+            self.__connection_provider.connect(ip_address, port)
             self._set_display_size()
 
     def _set_display_size(self):

@@ -1,4 +1,3 @@
-import time
 import unittest
 
 from imaging.image_factory import ImageFactory
@@ -7,6 +6,7 @@ from networking.twisted_server import LedServer
 from networking.twisted_client import Client
 from networking.tests.mock_led_device import MockLedDevice
 from twisted.internet import reactor
+
 
 class MockApplication(object):
     def __init__(self):
@@ -18,6 +18,7 @@ class MockApplication(object):
 
     def on_message_received(self, message):
         self.messages.append(message)
+
 
 class TestClientServerLocalCommunication(unittest.TestCase):
     def setUp(self):
