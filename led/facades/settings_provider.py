@@ -20,6 +20,9 @@ class SettingsProvider(object):
         self.__config.setdefaults('panel', {
             'width': 30,
             'height': 10})
+        self.__config.setdefaults('image', {
+            'mirror': False,
+            'flip': False})
 
     def add_display_connection_settings_panel(self, settings):
         settings_json = json.dumps([
@@ -53,7 +56,17 @@ class SettingsProvider(object):
             {'type': 'numeric',
              'title': 'Panel Height',
              'section': 'panel',
-             'key': 'height'}
+             'key': 'height'},
+
+            {'type': 'bool',
+             'title': 'Mirror',
+             'section': 'image',
+             'key': 'mirror'},
+
+            {'type': 'bool',
+             'title': 'Flip',
+             'section': 'image',
+             'key': 'flip'},
         ])
 
         settings.add_json_panel('Display Connection', self.__config, data=settings_json)
