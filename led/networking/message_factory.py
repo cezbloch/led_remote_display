@@ -32,7 +32,7 @@ class MessageFactory(object):
     def create_display_frame_message(image):
         data = create_command_dictionary()
         concrete_command = create_concrete_command(data, COMMAND_DISPLAY_FRAME)
-        concrete_command[PIXELS] = BinaryEncoder.encode_bytes(image.tostring())
+        concrete_command[PIXELS] = BinaryEncoder.encode_bytes(image.tobytes())
         concrete_command[SIZE] = image.size
         concrete_command[MODE] = image.mode
         return MessageFactory.dump_json(data)

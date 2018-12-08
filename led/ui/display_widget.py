@@ -15,7 +15,7 @@ class DisplayWidget(Image):
             width, height = self.size
             scaled_image = self.my_image.resize((int(width), int(height)))
             texture = Texture.create(size=self.size)
-            aaa = scaled_image.convert('RGBA').tostring()
+            aaa = scaled_image.convert('RGBA').tobytes()
             texture.blit_buffer(aaa, colorfmt='rgba', bufferfmt='ubyte')
             self.texture = texture
         else:

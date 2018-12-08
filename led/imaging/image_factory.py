@@ -32,7 +32,7 @@ class ImageFactory(object):
 
     @staticmethod
     def create_image_from_string(mode, size, data):
-        image = Image.fromstring(mode, size, data)
+        image = Image.frombytes(mode, size, data)
         return image
 
     @staticmethod
