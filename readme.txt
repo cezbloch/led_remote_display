@@ -1,8 +1,11 @@
-download and install
+download and install VC++ for python:
 https://aka.ms/vcpython27
 
-for this app
+For the client app the following packages are needed:
 pip install kivy pillow twisted
 
-for kivy in general
+For kivy GUI framework in general the following packags are needed:
 python -m pip install docutils pygments pypiwin32 kivy.deps.sdl2 kivy.deps.glew
+
+Start client app:
+python main.py
