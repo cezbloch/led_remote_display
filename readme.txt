@@ -14,9 +14,9 @@ python main.py
 in the GUI navigate to 'Panel Settings' and hit 'connect'
 
 -----------server side------------
-pip install rpi_ws281x twisted
+sudo pip install rpi_ws281x twisted
 cd led\apps\server
-python proxy.py
+sudo python proxy.py
 
 ----------- virtual test server on client side --------
 This is for testing without real LEDs
