@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/home/pi/keesware/led')
+sys.path.append('/home/pi/led_remote_display/led')
 
 from device.gpio_pwm_device import Ws281xDevice
 from device.strip_factory import StripeFactory
