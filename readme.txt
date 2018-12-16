@@ -24,3 +24,21 @@ This is for testing without real LEDs
 Start virtual server (LED display simulator):
 cd led\apps\simulator
 python simulator.py
+
+---------- create a deamon service launching at system start-up --------------
+sudo apt-get install daemontools daemontools-run
+- create service named 'led'
+sudo mkdir /etc/service/led
+- make start-up script called 'run'
+sudo nano /etc/service/led/run
+- type
+#!/bin/bash
+exec sudo /usr/bin/python /home/pi/led_remote_display/led/apps/server/proxy.py
+- set permissions
+sudo chmod u+x /etc/service/led/run
+- check status
+sudo svstat /etc/service/led
+- kill
+sudo svc -k /etc/service/led
+- start
+sudo svc -u /etc/service/led
