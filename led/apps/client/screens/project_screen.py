@@ -19,7 +19,8 @@ class ProjectScreen(Screen):
         self._image = None
         self._screen_text_to_ids = {'Text Effect': 'text_effect_screen',
                                     'Rainbow Effect': 'rainbow_effect_screen',
-                                    'Paint Effect': 'paint_effect_screen'}
+                                    'Paint Effect': 'paint_effect_screen',
+                                    'Live Effect': 'live_effect_screen'}
 
     def apply_effect(self):
         self._image = self._effect_provider.get_image()

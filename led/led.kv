@@ -1,16 +1,20 @@
 #:kivy 1.9.0
 #:import TextEffectScreen apps.client.screens.text_effect_screen
 #:import RainbowEffectScreen apps.client.screens.rainbow_effect_screen
+#:import LiveEffectScreen apps.client.screens.live_effect_screen
 #:import ProjectScreen apps.client.screens.project_screen
 #:import MainScreen apps.client.screens.main_screen
 #:import PaintEffectScreen apps.client.screens.paint_effect_screen
+#:import FileChooserScreen apps.client.screens.file_chooser_screen
 
 
 <LedScreenManager>
     MainScreen:
     ProjectScreen:
+    FileChooserScreen:
 
 <EffectScreenManager>
     RainbowEffectScreen:
     TextEffectScreen:
     PaintEffectScreen:
+    LiveEffectScreen:

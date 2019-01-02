@@ -4,11 +4,10 @@
     BoxLayout:
         orientation: 'vertical'
         BoxLayout:
-            size_hint: 1, 0.1
+            size_hint: 1, 0.2
             orientation: 'horizontal'
             AutoTextSizeButton:
-                size_hint: 0.2, 1
-                text: "back to Main Menu"
+                text: "Main Menu"
                 on_release: app.root.current = 'main_screen'
             Label:
                 text: root.chosen_image_path
